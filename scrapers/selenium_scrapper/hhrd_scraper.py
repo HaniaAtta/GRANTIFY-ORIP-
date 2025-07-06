@@ -18,8 +18,9 @@ logger = logging.getLogger(_name_)
 
 # Grant-specific open keywords
 open_keywords = [
-    "deadline", "apply now", "open until", "currently accepting",
-    "funding opportunity", "submission deadline", "open call"
+"donate now",
+"get involved",
+"volunteer"
 ]
 
 # === Grant Status Logic ===
