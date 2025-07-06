@@ -1,5 +1,9 @@
 # api/index.py
-from mangum import Mangum
-from app.main import app  # your FastAPI app lives here
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
-handler = Mangum(app)  # required for Vercel's Lambda
+app = FastAPI()
+
+@app.get("/")
+async def home():
+    return JSONResponse({"message": "🎉 FastAPI on Vercel with Neon is working!"})
