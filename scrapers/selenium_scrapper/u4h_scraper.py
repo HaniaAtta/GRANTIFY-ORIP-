@@ -1,4 +1,4 @@
-"https://u4h.org.uk/"
+
    
    import logging
 import re
@@ -56,7 +56,7 @@ def is_grant_open(text):
     return True  # fallback: open keyword present, but no past deadline found
 
 # === Scraper ===
-def scrape_wellcome(url="https://wellcome.org/research-funding/schemes"):
+def scrape_wellcome(url="https://u4h.org.uk/"):
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
