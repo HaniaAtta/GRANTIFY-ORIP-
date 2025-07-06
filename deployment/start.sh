@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 
 # === Load environment variables from parent directory ===
+sudo apt install -y jq
 set -o allexport
 source ../.env
 set +o allexport
@@ -41,8 +42,20 @@ sleep 120
 echo "[INFO] Scraping done. This server can now be safely destroyed."
 
 # === Destroy the Droplet ===
-echo "[INFO] Destroying Droplet ID: $DROPLET_ID ..."
-curl -X DELETE \
+# === Auto-detect Droplet ID from name ===
+echo "[INFO] Fetching Droplet ID for: $DROPLET_NAME ..."
+DROPLET_ID=$(curl -s -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $DO_API_TOKEN" \
-  "https://api.digitalocean.com/v2/droplets/$DROPLET_ID"
+  "https://api.digitalocean.com/v2/droplets?per_page=100" | \
+  jq -r --arg NAME "$DROPLET_NAME" '.droplets[] | select(.name == $NAME) | .id')
+
+if [ -n "$DROPLET_ID" ]; then
+  echo "[INFO] Destroying Droplet ID: $DROPLET_ID ..."
+  curl -X DELETE \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DO_API_TOKEN" \
+    "https://api.digitalocean.com/v2/droplets/$DROPLET_ID"
+else
+  echo "[ERROR] Droplet with name '$DROPLET_NAME' not found. Skipping destroy."
+fi
