@@ -54,7 +54,7 @@ def is_grant_open(text):
     return True  # fallback: open keyword present, but no past deadline found
 
 # === Scraper ===
-def scrape_wellcome(url="https://wellcome.org/research-funding/schemes"):
+def scrape_wellcome(url="https://www.hope87.org/membership"):
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -108,5 +108,5 @@ def scrape_wellcome(url="https://wellcome.org/research-funding/schemes"):
 
 
 
-( url = "https://www.hope87.org/membership"):
+
  
