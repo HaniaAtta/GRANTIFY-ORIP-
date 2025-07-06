@@ -1,14 +1,78 @@
+import logging
 import requests
 from bs4 import BeautifulSoup
-from scrapers.utils import get_user_agent, is_grant_open
+from fake_useragent import UserAgent
+from datetime import datetime
 
-def scrape_wearealight( url = "https://wearealight.org"):
-   
+# === Logging setup ===
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+session = requests.Session()
+
+# === Keyword banks ===
+open_keywords = [
+    "call for proposals", "call for applications", 
+    "grants available", "funding opportunity", "apply for funding",
+    "grant applications", "now accepting applications"
+]
+
+closed_keywords = [
+    "applications closed", "now closed", "deadline passed", 
+    "submission closed", "no longer accepting"
+]
+
+# === User-Agent ===
+def get_user_agent():
+    try:
+        return UserAgent().random
+    except:
+        return "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+
+# === Status checker ===
+def is_grant_open(text):
+    text = text.lower()
+    if any(kw in text for kw in closed_keywords):
+        return False
+    return any(kw in text for kw in open_keywords)
+
+# === Main scraper ===
+def scrape_wearealight(url="https://wearealight.org"):
+    today = datetime.utcnow().date()
     headers = {'User-Agent': get_user_agent()}
     try:
-        res = requests.get(url, headers=headers, timeout=10)
+        logger.info(f"Scraping: {url}")
+        res = session.get(url, headers=headers, timeout=10)
         res.raise_for_status()
-        text = BeautifulSoup(res.text, 'html.parser').get_text()
-        return {'url': url, 'status': 'open' if is_grant_open(text) else 'closed'}
+
+        soup = BeautifulSoup(res.text, 'html.parser')
+        text = soup.get_text(separator=' ', strip=True).lower()
+
+        # Heuristic: avoid HR-only/donation pages
+        if any(term in text for term in ['volunteer', 'careers', 'job openings', 'vacancies', 'donate']):
+            logger.info("Detected HR/donation content — likely not a grant page.")
+            return {'url': url, 'status': 'closed'}
+
+        # Keyword-based status
+        status = "open" if is_grant_open(text) else "closed"
+
+        # Date-based fallback check
+        for tag in soup.find_all(['p', 'li', 'div', 'span', 'h2', 'h3']):
+            txt = tag.get_text()
+            for fmt in ('%d %B %Y', '%B %d, %Y'):
+                try:
+                    dt = datetime.strptime(txt.strip(), fmt).date()
+                    if dt >= today:
+                        status = 'open'
+                except:
+                    continue
+
+        logger.info(f"WeAreAlight status detected as: {status}")
+        return {'url': url, 'status': status}
+
     except Exception as e:
+        logger.error(f"Error scraping {url}: {str(e)}")
         return {'url': url, 'status': 'error', 'error': str(e)}
+
+# === Optional test run
+# if __name__ == "__main__":
+#     print(scrape_wearealight())
