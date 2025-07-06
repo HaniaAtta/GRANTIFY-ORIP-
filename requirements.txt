@@ -1,0 +1,64 @@
+# === Core Frameworks ===
+fastapi==0.115.12
+uvicorn==0.34.2
+starlette==0.46.2
+jinja2==3.1.6
+python-multipart==0.0.20
+
+# === Flask (if using both Flask + FastAPI) ===
+flask==3.1.0
+itsdangerous==2.2.0
+werkzeug==3.1.3
+blinker==1.9.0
+
+# === Celery & Redis Queue System ===
+celery==5.5.2
+billiard==4.2.1
+kombu==5.5.3
+redis==6.0.0
+
+# === Database (Neon PostgreSQL) ===
+sqlalchemy==2.0.40
+psycopg2-binary==2.9.10
+python-dotenv==1.1.0
+
+# === Scraping and Automation ===
+requests==2.32.3
+beautifulsoup4==4.13.4
+soupsieve==2.7
+fake-useragent==2.2.0
+selenium==4.32.0
+webdriver-manager==4.0.2
+
+# === Email Utilities ===
+email-validator==2.2.0  # NOT `email` or `smtplib` – those are stdlib
+
+# === Async / WebSocket / Trio Support ===
+trio==0.30.0
+trio-websocket==0.12.2
+wsproto==1.2.0
+anyio==4.9.0
+sniffio==1.3.1
+httpcore==1.0.9
+httpx==0.28.1
+
+# === Utility Libraries ===
+typing_extensions==4.13.2
+packaging==25.0
+six==1.17.0
+certifi==2025.4.26
+charset-normalizer==3.4.2
+idna==3.10
+urllib3==2.4.0
+
+# === Pydantic (FastAPI needs this) ===
+pydantic==2.11.4
+pydantic-settings==2.9.1
+
+# === Optional Speed Boosters & Debugging ===
+ujson==5.10.0
+orjson==3.10.18
+rich==14.0.0
+watchfiles==1.0.5
+uvloop==0.21.0
+httptools==0.6.4
