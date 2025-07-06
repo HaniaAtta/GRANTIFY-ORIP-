@@ -1,9 +1,7 @@
-# api/index.py
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+import sys
+import os
 
-app = FastAPI()
+# Add root to import path so FastAPI can load from app/
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-@app.get("/")
-async def home():
-    return JSONResponse({"message": "🎉 FastAPI on Vercel with Neon is working!"})
+from app.main import app
