@@ -55,7 +55,7 @@ def is_grant_open_fnf(text):
     return False
 
 # === Main Scraper ===
-def scrape_fnf(url="https://www.freiheit.org/scholarships-friedrich-naumann-foundation-freedom"):
+def scrape_fnf(url="https://fnf.org"):
     headers = {'User-Agent': get_user_agent()}
     try:
         logger.info(f"Scraping FNF: {url}")

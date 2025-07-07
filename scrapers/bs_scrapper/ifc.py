@@ -32,7 +32,7 @@ def is_open(text):
         return False
     return any(word in t for word in open_keywords)
 
-def scrape_ifc(url="https://www.worldbank.org/en/about/corporate-procurement/business-opportunities"):
+def scrape_ifc(url="https://ifc.org"):
     headers = {'User-Agent': get_user_agent()}
     today = datetime.now().date()
 
