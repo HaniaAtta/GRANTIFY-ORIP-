@@ -17,7 +17,8 @@ from bs4 import BeautifulSoup
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(_name_)
+logger = logging.getLogger(__name__)
+
 
 # Grant-specific open keywords
 open_keywords = [
@@ -58,7 +59,7 @@ def is_grant_open(text):
     return True  # fallback: open keyword present, but no past deadline found
 
 # === Scraper ===
-def scrape_wellcome(url="https://www.ihh.org.tr"):
+def scrape_ihh(url="https://www.ihh.org.tr"):
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")

@@ -1,6 +1,4 @@
-
-    
-   import logging
+import logging
 import re
 import time
 from datetime import datetime
@@ -16,7 +14,8 @@ from bs4 import BeautifulSoup
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(_name_)
+logger = logging.getLogger(__name__)
+
 
 # Grant-specific open keywords
 open_keywords = [
@@ -55,7 +54,7 @@ def is_grant_open(text):
     return True  # fallback: open keyword present, but no past deadline found
 
 # === Scraper ===
-def scrape_wellcome(url="https://unidosus.org/"):
+def scrape_unidosus(url="https://unidosus.org/"):
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
