@@ -16,8 +16,36 @@ from scrapers.smart_scraper import smart_scrape
 import redis
 import traceback
 
+
 # === Initialize App ===
 app = FastAPI()
+
+from fastapi import FastAPI, Request, Form, Depends
+from fastapi.responses import HTMLResponse, RedirectResponse
+from starlette.middleware.sessions import SessionMiddleware
+
+# Secret key (change this!)
+app.add_middleware(SessionMiddleware, secret_key="supersecretkey123")
+
+# Hardcoded credentials
+VALID_USERNAME = "admin"
+VALID_PASSWORD = "secret123@"
+
+@app.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request, "error": None})
+
+@app.post("/login")
+async def login(request: Request, username: str = Form(...), password: str = Form(...)):
+    if username == VALID_USERNAME and password == VALID_PASSWORD:
+        request.session["user"] = username
+        return RedirectResponse(url="/", status_code=302)
+    return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid credentials"})
+
+@app.get("/logout")
+async def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse(url="/login", status_code=302)
 
 # === Static + Templates Setup ===
 templates = Jinja2Templates(directory="app/templates")
@@ -142,6 +170,9 @@ async def remove_url(grant_id: int):
 # === UI: Home Dashboard ===
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
+    if "user" not in request.session:
+        return RedirectResponse(url="/login", status_code=302)
+
     grants = get_grants()
     total_grants = len(grants)
     open_count = sum(1 for g in grants if g.status == "open")
