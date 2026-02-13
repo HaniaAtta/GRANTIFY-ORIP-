@@ -1,0 +1,1123 @@
+[
+  {
+    "name": "Japan International Cooperation Agency",
+    "url": "https://www.jica.go.jp/english/overseas/pakistan/activities/activity10.html",
+    "country": "Japan",
+    "categories": ["Social & Living Infrastructure Development"],
+    "thematic_area": ["Infrastructure", "Community Development"]
+  },
+  {
+    "name": "Pakistan Science Foundation",
+    "url": "https://psf.gov.pk/il-call-fo-proposals-NSFC-PSF.aspx",
+    "country": "Pakistan & China",
+    "categories": ["Green Energy", "Computer Sciences & Artificial Intelligence"],
+    "thematic_area": ["Science & Technology", "Sustainable Energy"]
+  },
+  {
+    "name": "UNGM",
+    "url": "https://www.ungm.org/",
+    "country": "UN (Global)",
+    "categories": ["Procurement & Tender Notices", "Contracts", "Vendor Opportunities", "Public Procurement"],
+    "thematic_area": ["Procurement", "International Development"]
+  },
+  {
+    "name": "Hilton Foundation",
+    "url": "https://www.hiltonfoundation.org/",
+    "country": "US",
+    "categories": ["Foster Youth", "Refugees", "Catholic Sisters", "Safe Water", "Global Early Childhood Development", "Homelessness", "Opportunity Youth"],
+    "thematic_area": ["Child Welfare", "Education", "Water & Sanitation", "Social Inclusion"]
+  },
+  {
+    "name": "World Bank",
+    "url": "https://www.worldbank.org/en/programs/reach/brief/reach-knowledge-learning-and-innovation-grants",
+    "country": "Global",
+    "categories": ["Knowledge, Learning & Innovation"],
+    "thematic_area": ["Education", "Capacity Building", "Innovation"]
+  },
+  {
+    "name": "Global Financing Facilities",
+    "url": "https://www.globalfinancingfacility.org/",
+    "country": "Global",
+    "categories": ["Maternal, Child and Adolescent Health", "Health Systems"],
+    "thematic_area": ["Health", "Maternal & Child Care"]
+  },
+  {
+    "name": "WWF",
+    "url": "https://www.wwfpak.org/take_action/small_grants_programme/",
+    "country": "Global",
+    "categories": ["Environment & Conservation"],
+    "thematic_area": ["Biodiversity", "Species Protection", "Mangroves", "Freshwater Conservation", "Community Conservation"]
+  },
+  {
+    "name": "Roncalli International Foundation",
+    "url": "https://roncalli.ca/en/grant-application/",
+    "country": "Canada",
+    "categories": ["Community Development", "Poverty Alleviation", "Humanitarian & Development Projects in Global South"],
+    "thematic_area": ["Community Development", "Poverty Reduction"]
+  },
+  {
+    "name": "Woman's Fund Asia",
+    "url": "https://www.womensfundasia.org/index.php?r=whatWeDo/CallForAction",
+    "country": "Regional (Sri Lanka HQ)",
+    "categories": ["Women’s Rights", "Feminist Movements", "Gender Equality", "Activist & Movement Support in Asia"],
+    "thematic_area": ["Gender", "Social Justice"]
+  },
+  {
+    "name": "Media Development Investment Fund",
+    "url": "https://www.mdif.org/apply-for-financing/",
+    "country": "Global",
+    "categories": ["Media Development", "Independent Media Financing (Loans, Equity, Technical Assistance)"],
+    "thematic_area": ["Media", "Journalism", "Capacity Building"]
+  },
+  {
+    "name": "Trust for Voluntary Organizations",
+    "url": "https://tvo.org.pk/tvo-call-for-proposal/",
+    "country": "Pakistan",
+    "categories": ["Community Development", "Capacity Building", "Grassroots Socio-Economic Projects"],
+    "thematic_area": ["Community Development", "Social Welfare"]
+  },
+  {
+    "name": "Toyota Foundation",
+    "url": "https://www.toyotafound.or.jp/english/grant/research/",
+    "country": "Japan",
+    "categories": ["Research & Innovation for Society", "Social Sciences and Interdisciplinary Research"],
+    "thematic_area": ["Research", "Education", "Societal Development"]
+  },
+  {
+    "name": "US Embassy",
+    "url": "https://pk.usembassy.gov/grant-opportunities/",
+    "country": "US",
+    "categories": ["Public Diplomacy", "Education", "Cultural Preservation", "Community Development"],
+    "thematic_area": ["Education", "Cultural Programs", "Community"]
+  },
+  {
+    "name": "UNDP",
+    "url": "https://www.undp.org/pakistan/procurement",
+    "country": "Global",
+    "categories": ["Development Programs across UNDP Sectors"],
+    "thematic_area": ["Governance", "Livelihoods", "Climate", "Resilience", "Procurement & Partnerships"]
+  },
+  
+    {
+      "name": "Grants Gov",
+      "url": "https://www.grants.gov/",
+      "country": "USA",
+      "categories": ["Grants Database"],
+      "thematic_area": ["Multi-sector Funding"]
+    },
+    {
+      "name": "USAID - U.S. Agency for International Development",
+      "url": "https://www.usaid.gov/",
+      "country": "USA",
+      "categories": ["Development", "Humanitarian Aid", "Education", "Democracy"],
+      "thematic_area": ["Global Development", "Governance", "Humanitarian Relief", "Education"]
+    },
+    {
+      "name": "European Commission - Funding & Tenders",
+      "url": "https://ec.europa.eu/info/funding-tenders",
+      "country": "European Union",
+      "categories": ["Research", "Innovation", "Sustainable Development"],
+      "thematic_area": ["Science & Technology", "Climate Action", "Economic Development"]
+    },
+    {
+      "name": "Asia Foundation",
+      "url": "https://asiafoundation.org/",
+      "country": "Asia",
+      "categories": ["Governance", "Education", "Environment", "Economic Development"],
+      "thematic_area": ["Community Development", "Governance", "Education", "Sustainability"]
+    },
+    {
+      "name": "British Council - Grant Opportunities",
+      "url": "https://www.britishcouncil.org/",
+      "country": "United Kingdom",
+      "categories": ["Education", "International Collaboration", "Cultural Exchange"],
+      "thematic_area": ["Education", "Culture", "International Relations"]
+    },
+    {
+      "name": "The Bill & Melinda Gates Foundation",
+      "url": "https://www.gatesfoundation.org/",
+      "country": "USA",
+      "categories": ["Global Health", "Education", "Poverty Alleviation", "Technology"],
+      "thematic_area": ["Health", "Education", "Economic Development", "Technology for Development"]
+    },
+    {
+      "name": "Open Society Foundations",
+      "url": "https://www.opensocietyfoundations.org/",
+      "country": "USA",
+      "categories": ["Human Rights", "Governance", "Education"],
+      "thematic_area": ["Democracy", "Human Rights", "Civic Engagement"]
+    },
+    {
+      "name": "The United Nations Development Programme (UNDP)",
+      "url": "https://www.undp.org/",
+      "country": "United Nations",
+      "categories": ["Sustainable Development", "Poverty Alleviation", "Governance"],
+      "thematic_area": ["Sustainability", "Poverty Reduction", "Governance", "Climate Action"]
+    },
+    {
+      "name": "Rockefeller Foundation",
+      "url": "https://www.rockefellerfoundation.org/",
+      "country": "USA",
+      "categories": ["Climate Resilience", "Economic Development", "Health", "Food Security"],
+      "thematic_area": ["Climate Change", "Economic Growth", "Health", "Agriculture"]
+    },
+    {
+      "name": "World Bank - Funding Projects",
+      "url": "https://www.worldbank.org/",
+      "country": "World Bank",
+      "categories": ["Education", "Climate Change", "Economic Development", "Poverty"],
+      "thematic_area": ["Capacity Building", "Sustainability", "Poverty Reduction"]
+    },
+    {
+      "name": "Ford Foundation",
+      "url": "https://www.fordfoundation.org/work/our-grants/grant-opportunities/",
+      "country": "USA",
+      "categories": ["Social Justice", "Economic Empowerment", "Technology"],
+      "thematic_area": ["Human Rights", "Technology for Development", "Social Inclusion"]
+    },
+    {
+      "name": "Islamic Development Bank (IsDB)",
+      "url": "https://www.isdb.org/",
+      "country": "Asia",
+      "categories": ["Education", "Infrastructure", "Sustainable Development", "Health"],
+      "thematic_area": ["Education", "Infrastructure Development", "Sustainability", "Healthcare"]
+    },
+    {
+      "name": "Commonwealth Foundation",
+      "url": "https://commonwealthfoundation.com/",
+      "country": "Commonwealth",
+      "categories": ["Civil Society", "Governance", "Culture"],
+      "thematic_area": ["Governance", "Cultural Development", "Civil Society Strengthening"]
+    },
+    {
+      "name": "Global Innovation Fund",
+      "url": "https://www.globalinnovation.fund/",
+      "country": "Global",
+      "categories": ["Entrepreneurship", "Social Innovation", "Economic Development"],
+      "thematic_area": ["Innovation", "Entrepreneurship", "Poverty Reduction"]
+    },
+    {
+      "name": "Green Climate Fund (GCF)",
+      "url": "https://www.greenclimate.fund/",
+      "country": "Global",
+      "categories": ["Climate Change Mitigation", "Adaptation", "Environmental Protection"],
+      "thematic_area": ["Climate Action", "Sustainability", "Environmental Protection"]
+    },
+    {
+      "name": "The World Bank Development Marketplace",
+      "url": "https://www.worldbank.org/en/programs/development-marketplace",
+      "country": "World Bank",
+      "categories": ["Climate", "Poverty Reduction", "Entrepreneurship"],
+      "thematic_area": ["Sustainability", "Entrepreneurship", "Poverty Reduction"]
+    },
+    {
+      "name": "European Research Council",
+      "url": "https://erc.europa.eu/",
+      "country": "European Union",
+      "categories": ["Scientific Breakthroughs", "Research", "Innovation"],
+      "thematic_area": ["Research", "Innovation", "Science & Technology"]
+    },
+    {
+      "name": "Google Research Awards",
+      "url": "https://research.google/",
+      "country": "USA",
+      "categories": ["Computer Science", "Machine Learning", "Quantum Computing", "Artificial Intelligence"],
+      "thematic_area": ["Technology", "AI Research", "Quantum Computing", "Computer Science"]
+    },
+    {
+      "name": "Microsoft Research Grants",
+      "url": "https://www.microsoft.com/en-us/research/",
+      "country": "USA",
+      "categories": ["Computer Science", "AI", "Data Science", "Environmental Sustainability"],
+      "thematic_area": ["Technology", "AI Research", "Sustainability", "Data Science"]
+    },
+    {
+      "name": "International Development Research Centre (IDRC)",
+      "url": "https://www.idrc.ca/",
+      "country": "Canada",
+      "categories": ["Climate Resilience", "Agriculture", "Inclusive Economies", "Innovation"],
+      "thematic_area": ["Climate Action", "Agriculture", "Economic Development", "Innovation"]
+    },
+    
+      {
+        "name": "Japan International Cooperation Agency (JICA)",
+        "url": "https://www.jica.go.jp/english/",
+        "country": "Japan",
+        "categories": ["Government", "Development"],
+        "thematic_area": ["Environmental Conservation", "Infrastructure", "Education", "Health"]
+      },
+      {
+        "name": "German Academic Exchange Service (DAAD)",
+        "url": "https://www.daad.de/",
+        "country": "Germany",
+        "categories": ["Education", "Research"],
+        "thematic_area": ["Higher Education", "Climate Research", "Academic Exchange"]
+      },
+      {
+        "name": "Erasmus+ Programme",
+        "url": "https://ec.europa.eu/programmes/erasmus-plus/",
+        "country": "European Union",
+        "categories": ["Education", "Youth", "Research"],
+        "thematic_area": ["Training", "Entrepreneurship", "Mobility", "Collaboration"]
+      },
+      {
+        "name": "United Nations Environment Programme (UNEP)",
+        "url": "https://www.unep.org/",
+        "country": "United Nations",
+        "categories": ["UN Agency", "Environment"],
+        "thematic_area": ["Environmental Protection", "Climate Action", "Renewable Energy"]
+      },
+      {
+        "name": "Friedrich Ebert Stiftung",
+        "url": "https://www.fes.de/",
+        "country": "Germany",
+        "categories": ["NGO", "Policy"],
+        "thematic_area": ["Democracy", "Political Education", "Social Justice"]
+      },
+      {
+        "name": "Johns Hopkins Global",
+        "url": "https://www.hopkinsmedicine.org/",
+        "country": "USA",
+        "categories": ["Research", "Health"],
+        "thematic_area": ["Global Health", "Medical Research"]
+      },
+      {
+        "name": "Task Force for Global Health",
+        "url": "https://www.taskforce.org/",
+        "country": "USA",
+        "categories": ["NGO", "Health"],
+        "thematic_area": ["Global Health", "Vaccination", "Disease Control"]
+      },
+      {
+        "name": "Wildlife Conservation Society",
+        "url": "https://www.wcs.org/",
+        "country": "Global",
+        "categories": ["NGO", "Environment"],
+        "thematic_area": ["Wildlife Conservation", "Environmental Protection"]
+      },
+      {
+        "name": "International Food Policy Research Institute (IFPRI)",
+        "url": "https://www.ifpri.org/",
+        "country": "Global",
+        "categories": ["Research", "Agriculture"],
+        "thematic_area": ["Food Policy", "Agriculture", "Global Development"]
+      },
+      {
+        "name": "John Snow Inc (JSI)",
+        "url": "https://www.jsi.com/",
+        "country": "USA",
+        "categories": ["Health", "Research"],
+        "thematic_area": ["Public Health", "Education", "Community Health"]
+      },
+      {
+        "name": "Cultivating New Frontiers in Agriculture (CNFA)",
+        "url": "https://www.cnfa.org/",
+        "country": "USA",
+        "categories": ["Agriculture", "Development"],
+        "thematic_area": ["Agriculture", "Economic Development", "Entrepreneurship"]
+      },
+      {
+        "name": "Winrock International Institute for Agricultural Development",
+        "url": "https://www.winrock.org/",
+        "country": "USA",
+        "categories": ["Agriculture", "Environment"],
+        "thematic_area": ["Agriculture", "Education", "Sustainability"]
+      },
+      {
+        "name": "United States Pharmacopoeial Convention (USP)",
+        "url": "https://www.usp.org/",
+        "country": "USA",
+        "categories": ["Health", "Standards"],
+        "thematic_area": ["Healthcare", "Medicines", "Public Policy", "Environmental Stewardship"]
+      },
+      {
+        "name": "HOPE'87 - Hundreds of Original Projects for Employment",
+        "url": "https://www.hope87.org/",
+        "country": "Austria",
+        "categories": ["Employment", "Humanitarian Aid"],
+        "thematic_area": ["Youth Development", "Education", "Humanitarian Aid"]
+      },
+      {
+        "name": "Nutrition International",
+        "url": "https://www.nutritionintl.org/",
+        "country": "Canada",
+        "categories": ["Health", "Nutrition"],
+        "thematic_area": ["Nutrition", "Health"]
+      },
+      {
+        "name": "International Development & Relief Foundation (IDRF)",
+        "url": "https://idrf.ca/",
+        "country": "Canada",
+        "categories": ["Humanitarian Aid", "Development"],
+        "thematic_area": ["Poverty Alleviation", "Relief"]
+      },
+      {
+        "name": "Right to Play International",
+        "url": "https://righttoplay.com/",
+        "country": "Canada",
+        "categories": ["Education", "Youth"],
+        "thematic_area": ["Education", "Youth Development", "Sports for Development"]
+      },
+      
+        {
+          "name": "Federation Handicap International",
+          "url": "https://www.handicap-international.org/",
+          "country": "Global",
+          "categories": ["Humanitarian Aid", "Disability Rights"],
+          "thematic_area": ["Disability Rights", "Humanitarian Aid"]
+        },
+        {
+          "name": "International Union Against Tuberculosis and Lung Disease",
+          "url": "https://www.theunion.org/",
+          "country": "Global",
+          "categories": ["Health"],
+          "thematic_area": ["Tuberculosis", "Lung Disease", "Public Health"]
+        },
+        {
+          "name": "Solidarités International",
+          "url": "https://www.solidarites.org/",
+          "country": "Global",
+          "categories": ["Humanitarian Aid", "Disaster Relief"],
+          "thematic_area": ["Humanitarian Aid", "Emergency Response", "Disaster Relief"]
+        },
+        {
+          "name": "Welthungerhilfe (German Agro Action)",
+          "url": "https://www.welthungerhilfe.org/",
+          "country": "Germany",
+          "categories": ["Food Security", "Agriculture", "Humanitarian Aid"],
+          "thematic_area": ["Agriculture", "Food Security", "Humanitarian Aid"]
+        },
+        {
+          "name": "Kindernothilfe e.V.",
+          "url": "https://www.knh.org/",
+          "country": "Germany",
+          "categories": ["Child Protection", "Humanitarian Aid"],
+          "thematic_area": ["Child Welfare", "Humanitarian Aid"]
+        },
+        {
+          "name": "Diakonie Katastrophenhilfe",
+          "url": "https://www.diakonie-katastrophenhilfe.de/",
+          "country": "Germany",
+          "categories": ["Humanitarian Aid", "Disaster Relief"],
+          "thematic_area": ["Humanitarian Aid", "Emergency Relief"]
+        },
+        {
+          "name": "Friedrich Ebert Stiftung",
+          "url": "https://www.fes.de/",
+          "country": "Germany",
+          "categories": ["Political Education", "Development Cooperation"],
+          "thematic_area": ["Democracy", "Social Justice", "Development Cooperation"]
+        },
+        {
+          "name": "Friedrich Naumann Foundation for Freedom",
+          "url": "https://www.fnf.org/",
+          "country": "Germany",
+          "categories": ["Political Education", "Human Rights"],
+          "thematic_area": ["Democracy", "Human Rights", "Liberal Values"]
+        },
+        {
+          "name": "Heinrich Boell Stiftung (Heinrich Boell Foundation)",
+          "url": "https://www.boell.de/",
+          "country": "Germany",
+          "categories": ["Environment", "Democracy", "Human Rights"],
+          "thematic_area": ["Climate", "Democracy", "Gender Equality", "Human Rights"]
+        },
+        {
+          "name": "Konrad-Adenauer-Stiftung",
+          "url": "https://www.kas.de/",
+          "country": "Germany",
+          "categories": ["Political Education", "Democracy"],
+          "thematic_area": ["Democracy", "Governance", "Political Participation"]
+        },
+        {
+          "name": "ISCOS, Trade Unions’ Institute for Development Cooperation",
+          "url": "https://www.iscos.org/",
+          "country": "Italy",
+          "categories": ["Development Cooperation", "Social Justice"],
+          "thematic_area": ["Labor Rights", "Social Justice", "Development"]
+        },
+        {
+          "name": "Westminster Foundation for Democracy",
+          "url": "https://www.wfd.org/",
+          "country": "United Kingdom",
+          "categories": ["Democracy", "Governance", "Human Rights"],
+          "thematic_area": ["Governance", "Civic Engagement", "Human Rights"]
+        },
+        {
+          "name": "Action for Humanity",
+          "url": "https://www.actionforhumanity.org/",
+          "country": "United Kingdom",
+          "categories": ["Humanitarian Aid", "Disaster Relief"],
+          "thematic_area": ["Emergency Relief", "Humanitarian Aid"]
+        },
+        {
+          "name": "ALIGHT (formerly American Refugee Committee)",
+          "url": "https://wearealight.org/",
+          "country": "United States",
+          "categories": ["Humanitarian Aid", "Refugee Support"],
+          "thematic_area": ["Refugees", "Humanitarian Aid", "Community Support"]
+        },
+        {
+          "name": "The Malala Fund",
+          "url": "https://malala.org/",
+          "country": "Global",
+          "categories": ["Education", "Advocacy"],
+          "thematic_area": ["Girls' Education", "Advocacy", "Gender Equality"]
+        },
+        {
+          "name": "Solidarity Center",
+          "url": "https://www.solidaritycenter.org/",
+          "country": "United States",
+          "categories": ["Labor Rights", "Workers' Rights"],
+          "thematic_area": ["Workers' Rights", "Labor Issues", "Social Justice"]
+        },
+        {
+          "name": "World Education Foundation",
+          "url": "https://worlded.org/",
+          "country": "Global",
+          "categories": ["Education", "Development"],
+          "thematic_area": ["Global Education", "Capacity Building", "Development"]
+        },
+        {
+          "name": "Lions Clubs International",
+          "url": "https://www.lionsclubs.org/",
+          "country": "Global",
+          "categories": ["Community Service", "Humanitarian Aid"],
+          "thematic_area": ["Community Development", "Humanitarian Aid"]
+        },
+        {
+          "name": "Catholic Relief Services (CRS)",
+          "url": "https://www.crs.org/",
+          "country": "United States",
+          "categories": ["Humanitarian Aid", "Poverty Alleviation", "Disaster Relief"],
+          "thematic_area": ["Poverty Reduction", "Humanitarian Aid", "Disaster Response"]
+        },
+        {
+          "name": "National Democratic Institute (NDI)",
+          "url": "https://www.ndi.org/",
+          "country": "United States",
+          "categories": ["Democracy", "Governance", "Civic Engagement"],
+          "thematic_area": ["Democracy", "Governance", "Civic Engagement"]
+        },
+        
+          {
+            "name": "International Livestock Research Institute (ILRI)",
+            "url": "https://www.ilri.org/",
+            "country": "Kenya",
+            "categories": ["Agriculture", "Research"],
+            "thematic_area": ["Livestock", "Food Security", "Agriculture Development"]
+          },
+          {
+            "name": "International Maize and Wheat Improvement Center (CIMMYT)",
+            "url": "https://www.cimmyt.org/",
+            "country": "Mexico",
+            "categories": ["Agriculture", "Research"],
+            "thematic_area": ["Maize Improvement", "Wheat Improvement", "Food Security"]
+          },
+          {
+            "name": "UNICEF",
+            "url": "https://www.unicef.org/",
+            "country": "United Nations",
+            "categories": ["Children", "Humanitarian Aid"],
+            "thematic_area": ["Children's Rights", "Welfare", "Education", "Health"]
+          },
+          {
+            "name": "Mercy Corps",
+            "url": "https://www.mercycorps.org/",
+            "country": "United States",
+            "categories": ["Humanitarian Aid", "Development"],
+            "thematic_area": ["Emergency Response", "Community Development", "Resilience"]
+          },
+          {
+            "name": "World Health Organization (WHO)",
+            "url": "https://www.who.int/",
+            "country": "Switzerland",
+            "categories": ["Health", "Emergency Response"],
+            "thematic_area": ["Global Health", "Emergency Health Response", "Disease Prevention"]
+          },
+          {
+            "name": "FHI 360",
+            "url": "https://www.fhi360.org/",
+            "country": "United States",
+            "categories": ["Health", "Education", "Development"],
+            "thematic_area": ["Health", "Education", "Human Development"]
+          },
+          {
+            "name": "United Nations Office for Project Services (UNOPS)",
+            "url": "https://www.unops.org/",
+            "country": "Denmark",
+            "categories": ["Project Management", "Infrastructure"],
+            "thematic_area": ["Infrastructure Development", "Procurement", "Capacity Building"]
+          },
+          {
+            "name": "International Finance Corporation (IFC)",
+            "url": "https://www.ifc.org/",
+            "country": "United States",
+            "categories": ["Finance", "Development"],
+            "thematic_area": ["Private Sector Development", "Investment", "Economic Growth"]
+          },
+          {
+            "name": "DT Global",
+            "url": "https://dt-global.com/",
+            "country": "United States",
+            "categories": ["International Development", "Consultancy"],
+            "thematic_area": ["Development Projects", "Capacity Building", "Governance"]
+          },
+          {
+            "name": "Solidarités International",
+            "url": "https://www.solidarites.org/",
+            "country": "France",
+            "categories": ["Humanitarian Aid", "Relief"],
+            "thematic_area": ["Emergency Response", "Humanitarian Aid"]
+          },
+          {
+            "name": "UN Women",
+            "url": "https://www.unwomen.org/",
+            "country": "United Nations",
+            "categories": ["Gender Equality", "Women's Empowerment"],
+            "thematic_area": ["Gender Equality", "Women's Rights", "Empowerment"]
+          },
+          {
+            "name": "World Food Programme (WFP)",
+            "url": "https://www.wfp.org/",
+            "country": "Italy",
+            "categories": ["Food Assistance", "Nutrition"],
+            "thematic_area": ["Food Security", "Nutrition", "Emergency Food Aid"]
+          },
+          {
+            "name": "ACDI/VOCA",
+            "url": "https://www.acdivoca.org/",
+            "country": "United States",
+            "categories": ["Economic Development", "Agriculture"],
+            "thematic_area": ["Agriculture Development", "Food Security", "Livelihoods"]
+          },
+          {
+            "name": "Agence Française de Développement (AFD)",
+            "url": "https://www.afd.fr/en",
+            "country": "France",
+            "categories": ["Development Finance", "Support"],
+            "thematic_area": ["Development Projects", "Sustainable Finance", "International Cooperation"]
+          },
+          {
+            "name": "The Nature Conservancy",
+            "url": "https://www.nature.org/",
+            "country": "United States",
+            "categories": ["Conservation", "Environment"],
+            "thematic_area": ["Environmental Protection", "Biodiversity Conservation", "Climate Action"]
+          },
+          {
+            "name": "Democracy International",
+            "url": "https://democracyinternational.com/",
+            "country": "United States",
+            "categories": ["Democracy", "Governance"],
+            "thematic_area": ["Democratic Governance", "Political Processes", "Civic Participation"]
+          },
+          {
+            "name": "UN-Habitat",
+            "url": "https://unhabitat.org/",
+            "country": "Kenya",
+            "categories": ["Urban Development", "Housing"],
+            "thematic_area": ["Urban Planning", "Sustainable Cities", "Human Settlements"]
+          },
+          {
+            "name": "United Nations High Commissioner for Refugees (UNHCR)",
+            "url": "https://www.unhcr.org/",
+            "country": "Switzerland",
+            "categories": ["Refugees", "Humanitarian Aid"],
+            "thematic_area": ["Refugee Protection", "Humanitarian Assistance", "Migration"]
+          },
+          {
+            "name": "World Resources Institute (WRI)",
+            "url": "https://www.wri.org/",
+            "country": "United States",
+            "categories": ["Environment", "Sustainability"],
+            "thematic_area": ["Sustainable Resource Management", "Climate Change", "Energy"]
+          },
+          {
+            "name": "Generation",
+            "url": "https://www.generation.org/",
+            "country": "United States",
+            "categories": ["Education", "Youth Employment"],
+            "thematic_area": ["Youth Employment", "Education", "Skills Training"]
+          },
+        
+            {
+              "name": "Management Systems International",
+              "url": "msiworldwide.com",
+              "country": "USA",
+              "categories": ["International Development"],
+              "thematic_areas": ["Consulting", "Project Management"]
+            },
+            {
+              "name": "Première Urgence Internationale (PUI-FR)",
+              "url": "premiere-urgence.org",
+              "country": "France",
+              "categories": ["Humanitarian Aid"],
+              "thematic_areas": ["Emergency Relief", "Development"]
+            },
+            {
+              "name": "International Business & Technical Consultants, Inc. (IBTCI)",
+              "url": "ibtci.com",
+              "country": "USA",
+              "categories": ["Development"],
+              "thematic_areas": ["Monitoring", "Evaluation", "Consulting"]
+            },
+            {
+              "name": "Chemonics International Inc.",
+              "url": "chemonics.com",
+              "country": "USA",
+              "categories": ["International Development"],
+              "thematic_areas": ["Consulting"]
+            },
+            {
+              "name": "American Bar Association Rule of Law Initiative",
+              "url": "aba-roli.org",
+              "country": "USA",
+              "categories": ["Law", "Governance"],
+              "thematic_areas": ["Legal Reform", "Rule of Law"]
+            },
+            {
+              "name": "NIRAS International Consulting",
+              "url": "niras.com",
+              "country": "Denmark",
+              "categories": ["Development"],
+              "thematic_areas": ["Consulting", "Project Management"]
+            },
+            {
+              "name": "Tetra Tech",
+              "url": "tetratech.com",
+              "country": "USA",
+              "categories": ["Engineering", "Development"],
+              "thematic_areas": ["Consulting", "Technical Services"]
+            },
+            {
+              "name": "United Nations Office for the Coordination of Humanitarian Affairs (UNOCHA)",
+              "url": "unocha.org",
+              "country": "USA",
+              "categories": ["Humanitarian Aid"],
+              "thematic_areas": ["Coordination", "Disaster Response"]
+            },
+            {
+              "name": "Humanity & Inclusion (Handicap International)",
+              "url": "humanity-inclusion.org",
+              "country": "France",
+              "categories": ["Disability", "Inclusion"],
+              "thematic_areas": ["Humanitarian Aid", "Development"]
+            },
+            {
+              "name": "International Organization for Migration (IOM)",
+              "url": "iom.int",
+              "country": "Switzerland",
+              "categories": ["Migration", "Development"],
+              "thematic_areas": ["Humanitarian Aid", "Policy"]
+            },
+            {
+              "name": "RTI International",
+              "url": "rti.org",
+              "country": "USA",
+              "categories": ["Research", "Development"],
+              "thematic_areas": ["Global Health", "Education", "Governance"]
+            },
+            {
+              "name": "World Vision",
+              "url": "worldvision.org",
+              "country": "Unknown",
+              "categories": ["Humanitarian Aid", "Child Protection"],
+              "thematic_areas": ["Development", "Community Support"]
+            },
+            {
+              "name": "The Palladium Group",
+              "url": "palladiumgroup.com",
+              "country": "Unknown",
+              "categories": ["Consulting"],
+              "thematic_areas": ["Strategy", "Management", "Technology"]
+            },
+            {
+              "name": "Vital Voices Global Partnership",
+              "url": "vitalvoices.org",
+              "country": "Unknown",
+              "categories": ["Women’s Empowerment"],
+              "thematic_areas": ["Leadership", "Advocacy"]
+            },
+            {
+              "name": "DAI",
+              "url": "dai.com",
+              "country": "Unknown",
+              "categories": ["Development", "Humanitarian Aid"],
+              "thematic_areas": ["Assistance", "Consulting"]
+            },
+            {
+              "name": "Global Green Growth Institute (GGGI)",
+              "url": "gggi.org",
+              "country": "South Korea",
+              "categories": ["Sustainability", "Environment"],
+              "thematic_areas": ["Green Growth", "Development"]
+            },
+            {
+              "name": "Global Communities",
+              "url": "globalcommunities.org",
+              "country": "USA",
+              "categories": ["Community Development", "Humanitarian Aid"],
+              "thematic_areas": ["Assistance", "Development"]
+            },
+            {
+              "name": "IDinsight",
+              "url": "idinsight.org",
+              "country": "USA",
+              "categories": ["Research", "Development"],
+              "thematic_areas": ["Data-driven Solutions"]
+            },
+            {
+              "name": "United Nations Office on Drugs and Crime (UNODC)",
+              "url": "unodc.org",
+              "country": "Austria",
+              "categories": ["Law", "Governance"],
+              "thematic_areas": ["Crime Prevention", "Drug Control"]
+            },
+            {
+              "name": "Gates Foundation",
+              "url": "gatesfoundation.org",
+              "country": "USA",
+              "categories": ["Global Health", "Development"],
+              "thematic_areas": ["Health", "Education", "Poverty Reduction"]
+            },
+            {
+              "name": "Innovations for Poverty Action (IPA)",
+              "url": "poverty-action.org",
+              "country": "USA",
+              "categories": ["Research", "Development"],
+              "thematic_areas": ["Poverty Reduction", "Evaluation"]
+            },
+            
+              {
+                "name": "Management Sciences for Health (MSH)",
+                "url": "msh.org",
+                "country": "USA",
+                "categories": ["Health"],
+                "thematic_areas": ["Health Systems Strengthening"]
+              },
+              {
+                "name": "Pact",
+                "url": "pactworld.org",
+                "country": "USA",
+                "categories": ["Development"],
+                "thematic_areas": ["Programs", "Capacity Building"]
+              },
+              {
+                "name": "Consultative Group for International Agricultural Research (CGIAR)",
+                "url": "cgiar.org",
+                "country": "International",
+                "categories": ["Agriculture", "Research"],
+                "thematic_areas": ["Agricultural Innovation", "Food Security"]
+              },
+              {
+                "name": "Counterpart International",
+                "url": "counterpart.org",
+                "country": "USA",
+                "categories": ["Development"],
+                "thematic_areas": ["Capacity Building", "Programs"]
+              },
+              {
+                "name": "TechnoServe",
+                "url": "technoserve.org",
+                "country": "USA",
+                "categories": ["Development", "Business"],
+                "thematic_areas": ["Poverty Reduction", "Entrepreneurship"]
+              },
+              {
+                "name": "Improving Economies for Stronger Communities (IESC)",
+                "url": "iesc.org",
+                "country": "USA",
+                "categories": ["Economic Development"],
+                "thematic_areas": ["Business Support", "Development"]
+              },
+              {
+                "name": "IntraHealth International, Inc.",
+                "url": "intrahealth.org",
+                "country": "USA",
+                "categories": ["Health"],
+                "thematic_areas": ["Emergency Medical Relief", "Healthcare"]
+              },
+              {
+                "name": "International Medical Corps (IMC)",
+                "url": "internationalmedicalcorps.org",
+                "country": "USA",
+                "categories": ["Health", "Humanitarian Aid"],
+                "thematic_areas": ["Medical Relief", "Emergency Response"]
+              },
+              {
+                "name": "United Nations Capital Development Fund (UNCDF)",
+                "url": "uncdf.org",
+                "country": "USA",
+                "categories": ["Finance", "Development"],
+                "thematic_areas": ["Development Finance", "Investment"]
+              },
+              {
+                "name": "Alliance of Bioversity International and CIAT",
+                "url": "alliancebioversityciat.org",
+                "country": "International",
+                "categories": ["Agriculture", "Biodiversity"],
+                "thematic_areas": ["Agricultural Research", "Conservation"]
+              },
+              {
+                "name": "Pan American Development Foundation (PADF)",
+                "url": "padf.org",
+                "country": "USA",
+                "categories": ["Development", "Humanitarian Aid"],
+                "thematic_areas": ["Programs", "Disaster Relief"]
+              },
+              {
+                "name": "Education Development Center, Inc. (EDC)",
+                "url": "edc.org",
+                "country": "USA",
+                "categories": ["Education", "Health"],
+                "thematic_areas": ["Development", "Training"]
+              },
+              {
+                "name": "GOPA AFC GmbH",
+                "url": "gopa.de",
+                "country": "Germany",
+                "categories": ["Development"],
+                "thematic_areas": ["Consulting", "Services"]
+              },
+              {
+                "name": "International Research and Exchanges Board (IREX)",
+                "url": "irex.org",
+                "country": "USA",
+                "categories": ["Education", "Media", "Civil Society"],
+                "thematic_areas": ["Development", "Capacity Building"]
+              },
+              {
+                "name": "Acumen",
+                "url": "acumen.org",
+                "country": "USA",
+                "categories": ["Impact Investing"],
+                "thematic_areas": ["Social Change", "Development"]
+              },
+              {
+                "name": "Commonwealth Secretariat",
+                "url": "thecommonwealth.org",
+                "country": "UK",
+                "categories": ["Governance", "Development"],
+                "thematic_areas": ["Assistance", "Capacity Building"]
+              },
+              {
+                "name": "Making Cents International",
+                "url": "makingcents.com",
+                "country": "USA",
+                "categories": ["Youth", "Economic Development"],
+                "thematic_areas": ["Entrepreneurship", "Capacity Building"]
+              },
+              {
+                "name": "World Intellectual Property Organization (WIPO)",
+                "url": "wipo.int",
+                "country": "Switzerland",
+                "categories": ["Innovation", "Law"],
+                "thematic_areas": ["Intellectual Property", "Research"]
+              },
+              {
+                "name": "The Prince's Trust",
+                "url": "princes-trust.org.uk",
+                "country": "UK",
+                "categories": ["Youth", "Development"],
+                "thematic_areas": ["Support", "Enterprise"]
+              },
+              {
+                "name": "Teach For All",
+                "url": "teachforall.org",
+                "country": "USA",
+                "categories": ["Education"],
+                "thematic_areas": ["Equity", "Leadership"]
+              },
+              
+                {
+                  "name": "Office of the United Nations High Commissioner for Human Rights (OHCHR)",
+                  "url": "ohchr.org",
+                  "country": "Switzerland",
+                  "categories": ["Human Rights"],
+                  "thematic_areas": ["Human Rights Promotion", "Protection"]
+                },
+                {
+                  "name": "Cooperazione Internazionale (COOPI)",
+                  "url": "coopi.org",
+                  "country": "Italy",
+                  "categories": ["Humanitarian Aid", "Development"],
+                  "thematic_areas": ["Emergency Aid", "International Development"]
+                },
+                {
+                  "name": "Jhpiego",
+                  "url": "jhpiego.org",
+                  "country": "USA",
+                  "categories": ["Health"],
+                  "thematic_areas": ["Maternal Health", "Child Health", "Healthcare"]
+                },
+                {
+                  "name": "Adam Smith International",
+                  "url": "adamsmithinternational.com",
+                  "country": "UK",
+                  "categories": ["Economic Development", "Governance"],
+                  "thematic_areas": ["Policy", "Development Consulting"]
+                },
+                {
+                  "name": "Creative Associates International",
+                  "url": "creativeassociatesinternational.com",
+                  "country": "USA",
+                  "categories": ["Education", "Development Consulting"],
+                  "thematic_areas": ["Capacity Building", "Community Development"]
+                },
+                {
+                  "name": "The Aspen Institute",
+                  "url": "aspeninstitute.org",
+                  "country": "USA",
+                  "categories": ["Leadership", "Policy"],
+                  "thematic_areas": ["Leadership Development", "Policy Analysis"]
+                },
+                {
+                  "name": "Environmental Defense Fund (EDF)",
+                  "url": "edf.org",
+                  "country": "USA",
+                  "categories": ["Environment", "Climate Action"],
+                  "thematic_areas": ["Environmental Protection", "Sustainability"]
+                },
+                {
+                  "name": "International Republican Institute (IRI)",
+                  "url": "iri.org",
+                  "country": "USA",
+                  "categories": ["Democracy", "Governance"],
+                  "thematic_areas": ["Democratic Development", "Political Participation"]
+                },
+                {
+                  "name": "International Crops Research Institute for the Semi-Arid Tropics (ICRISAT)",
+                  "url": "icrisat.org",
+                  "country": "India",
+                  "categories": ["Agriculture", "Research"],
+                  "thematic_areas": ["Food Security", "Agricultural Research"]
+                },
+                {
+                  "name": "Government Agencies and Institutions",
+                  "url": "N/A",
+                  "country": "Global",
+                  "categories": ["Governance"],
+                  "thematic_areas": ["Public Sector Development", "International Cooperation"]
+                },
+                {
+                  "name": "Australian Government Department of Foreign Affairs and Trade (DFAT)",
+                  "url": "dfat.gov.au",
+                  "country": "Australia",
+                  "categories": ["International Relations", "Development"],
+                  "thematic_areas": ["Foreign Affairs", "Development Cooperation"]
+                },
+                {
+                  "name": "Oxford Policy Management (OPM)",
+                  "url": "opml.co.uk",
+                  "country": "UK",
+                  "categories": ["Policy Research", "Advisory Services"],
+                  "thematic_areas": ["Policy", "Development Consulting"]
+                },
+                {
+                  "name": "Global Conservation Fund (GCF)",
+                  "url": "gcfund.org",
+                  "country": "South Korea (International)",
+                  "categories": ["Environment", "Biodiversity"],
+                  "thematic_areas": ["Climate Change Mitigation", "Ecosystem Restoration"]
+                },
+                {
+                  "name": "World Wildlife Fund (WWF)",
+                  "url": "worldwildlife.org",
+                  "country": "Switzerland",
+                  "categories": ["Environment", "Wildlife Conservation"],
+                  "thematic_areas": ["Sustainable Development", "Climate Change"]
+                },
+                {
+                  "name": "International Growth Centre (IGC)",
+                  "url": "theigc.org",
+                  "country": "UK",
+                  "categories": ["Research", "Development"],
+                  "thematic_areas": ["Global Collaboration", "Innovation", "Knowledge Exchange"]
+                },
+                {
+                  "name": "Spencer Foundation",
+                  "url": "spencer.org",
+                  "country": "USA",
+                  "categories": ["Education", "Research"],
+                  "thematic_areas": ["Learning", "Equity", "Educational Policy"]
+                },
+                {
+                  "name": "Friedrich-Ebert-Stiftung (FES)",
+                  "url": "pakistan.fes.de/about/fes-in-pakistan.html",
+                  "country": "Germany",
+                  "categories": ["Democracy", "Development"],
+                  "thematic_areas": ["Civic Education", "Research", "International Cooperation", "Social Justice"]
+                },
+                {
+                  "name": "National Institute for Health and Care Research (NIHR)",
+                  "url": "nihr.ac.uk",
+                  "country": "UK",
+                  "categories": ["Health", "Research"],
+                  "thematic_areas": ["Clinical Trials", "Health Services Research", "Public Health"]
+                },
+                {
+                  "name": "International Centre for Integrated Mountain Development (ICIMOD)",
+                  "url": "icimod.org",
+                  "country": "Nepal",
+                  "categories": ["Environment", "Sustainable Development"],
+                  "thematic_areas": ["Climate Change Adaptation", "Biodiversity Conservation", "Water Resource Management", "Sustainable Livelihoods"]
+                },
+                {
+                  "name": "Global Greengrants Fund",
+                  "url": "google.org",
+                  "country": "USA",
+                  "categories": ["Environment", "Social Justice"],
+                  "thematic_areas": ["Climate Change", "Human Rights", "Sustainable Development"]
+                },
+                {
+                  "name": "OAK Foundation",
+                  "url": "oakfnd.org/grant-making/",
+                  "country": "Switzerland",
+                  "categories": ["Human Rights", "Education", "Environment"],
+                  "thematic_areas": ["Child Protection", "Youth Empowerment", "Environmental Sustainability"]
+                },
+                {
+                  "name": "Global Disaster Preparedness Centre (GDPC)",
+                  "url": "preparecenter.org",
+                  "country": "Unknown",
+                  "categories": ["Disaster Preparedness", "Climate"],
+                  "thematic_areas": ["Humanitarian Response", "Capacity Building", "Risk Reduction"]
+                },
+                {
+                  "name": "International Climate Initiative (IKI)",
+                  "url": "iki-small-grants.de/application/",
+                  "country": "Unknown",
+                  "categories": ["Climate", "Environment"],
+                  "thematic_areas": ["Climate Initiatives", "Small Grants"]
+                },
+                {
+                  "name": "Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ)",
+                  "url": "giz.de/en/aboutgiz/profile.html",
+                  "country": "Germany",
+                  "categories": ["Development", "Education", "Environment", "Peace & Security"],
+                  "thematic_areas": ["Economic Development", "Employment Promotion", "Energy", "Sustainability", "International Cooperation"]
+                },
+                {
+                  "name": "Google.org",
+                  "url": "google.org",
+                  "country": "Unknown",
+                  "categories": ["Technology", "Innovation"],
+                  "thematic_areas": ["Research", "Resources", "IT Support"]
+                },
+                {
+                  "name": "Wellcome",
+                  "url": "wellcome.org",
+                  "country": "UK",
+                  "categories": ["Health", "Research"],
+                  "thematic_areas": ["Climate Change", "Infectious Diseases", "Mental Health", "Innovation"]
+                }
+              ]
+                  
+                
+      
+        
+      
+  
+    
+  

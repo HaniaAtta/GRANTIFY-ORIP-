@@ -1,7 +1,5 @@
 # docker-compose.yml
 
-version: '3.9'
-
 services:
   fastapi:
     build: .
@@ -10,20 +8,33 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
     depends_on:
       - redis
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   celery:
     build: .
     container_name: grantly_celery
-    command: celery -A celery_worker.celery worker --loglevel=info
+    command: celery -A celery_worker.celery worker --loglevel=info --reload
     volumes:
       - .:/app
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
     depends_on:
       - redis
+      - fastapi
+    restart: unless-stopped
 
   redis:
     image: redis:alpine
     container_name: grantly_redis
     ports:
       - "6379:6379"
+    restart: unless-stopped

@@ -1,761 +1,126 @@
-from urllib.parse import urlparse
-from models.db_helper import add_or_update_grant
+import time
+import logging
+from datetime import datetime
+from config import celery_app
+from models.db_helper import add_or_update_grant_site, get_grant_sites
 from app.utils.email_sender import send_email
-from config import celery_app  
-from celery_worker import celery
-from scrapers.bs_scrapper import (
-    fundsforngos_scraper,
-    grants_gov,
-    usaid_gov,
-    daad,
-    ec_eu_grants,
-    globalfund,
-    fundsforngospremium,
-    gatesfoundation,
-    opensociety,
-    undp,
-    rockefeller,
-    worldbank_grants,
-    horizon2020,
-    fordfoundation,
-    isdb,
-    commonwealth,
-    gif,
-    greenclimate,
-    wb_marketplace,
-    erc,
-    googleresearch,
-    microsoftresearch,
-    idrc,
-    erasmus,
-    unep,
-    hollows,
-    hope87,
-    msf,
-    nutritionintl,
-    idrf,
-    humanconcern,
-    righttoplay,
-    msf_fr,
-    handicap,
-    medecinsdumonde,
-    solidarites,
-    welthungerhilfe,
-    archenova,
-    cbm,
-    kindernothilfe,
-    diakonie,
-    fes,
-    freiheit,
-    concern,
-    cure2children,
-    cesvi,
-    jen,
-    aarjapan,
-    wamy,
-    iico,
-    genderconcerns,
-    nca,
-    qcharity,
-    tdh,
-    gainhealth,
-    helvetas,
-    opensocietyfoundations,
-    solidarch,
-    oxfam,
-    helpage,
-    muslimhands,
-    sightsavers,
-    midlanddoctors,
-    vsointernational,
-    redr,
-    humanappeal,
-    jhpiego,
-    care,
-    iqrafund,
-    jsi,
-    psi,
-    taskforce,
-    wcs,
-    ifpri,
-    cnfa,
-    winrock,
-    usp,
-    unionaid,
-    theunion,
-    welthungerhilfe,
-    arche_nova,
-    knh,
-    scrape_fnf,
-    scrape_boell,
-    scrape_iscos,
-    scrape_wfd,
-    scrape_kort,
-    scrape_orphansinneed,
-    scrape_actionforhumanity,
-    scrape_wearealight,
-    scrape_malala,
-    scrape_sparkofhope,
-    scrape_solidaritycenter,
-    scrape_worlded,
-    centralasia,
-    ndi,
-    zakat,
-    ilri,
-    emphnet,
-    cimmyt,
-    mercycorps,
-    who,
-    fhi360,
-    unops,
-    ifc,
-    dtglobal,
-    issafrica,
-    unwomen,
-    wfp,
-    acdivoca,
-    erm,
-    nature,
-    di,
-    unhabitat,
-    wri,
-    generation,
-    msi,
-    pu,
-    ibtci,
-    chemonics,
-    niras,
-    tetratech,
-    unocha,
-    iom,
-    rti,
-    change,
-    watermission,
-    vitalvoices,
-    roomtoread,
-    oneacrefund,
-    gggi,
-    idinsight,
-    unodc,
-    povertyaction,
-    partners,
-    imaworldhealth,
-    goalglobal,
-    savethechildren,
-    impactinitiatives,
-    msh,
-    pactworld,
-    cgiar,
-    kenanasia,
-    counterpart,
-    technoserve,
-    iesc,
-    intrahealth ,
-    internationalmedicalcorps ,
-    uncdf ,
-    alliancebioversityciat ,
-    foodandwaterwatch ,
-    padf ,
-    edc ,
-    gopa ,
-    irex ,
-    acumen ,
-    thecommonwealth ,
-    makingcents,
-    ecb,
-    wipo,
-    un_desa,
-    princes_trust,
-    teach_for_all,
-    upu,
-    adamsmith_international,
-    creative_associates_international,
-    aspen_institute,
-    edf,
-    salaam_baalak_trust,
-    iri,
-    icrisat,
-    interpol,
-    opml,
-    global_grants_initiative,
-    the_igc,
-    spencer,
-    fes_pakistan,
-    icimod,
-    google,
-    oakfnd,
-    prepare_center,
-    iki_small_grants,
-    being_initiative,
-    giz,
-    fedtech,
+from scrapers.bs_scrapper.scraper import scrape_page
+
+celery = celery_app
+
+# === Configure logging ===
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+
+@celery.task(bind=True, max_retries=3, default_retry_delay=10)
+def run_all_scrapers(self):
+    """
+    Celery task: scrape all grants from NeonDB.
     
-)
-
-from scrapers.selenium_scrapper import (
-    asiafoundation_scraper,
-    britishcouncil,
-    nihr,
-    jica,
-    coopi_scraper,
-    planete_eed_scraper,
-    undss_scraper,
-    unidosus_scraper,
-    dai_scraper,
-    educatetanzania_scraper,
-    americanbar_scraper,
-    worldvision_scraper,
-    ibi_scraper,
-    palladium_scraper,
-    wwf_scraper,
-    dfat_scraper,
-    ohchr_scraper,
-    devex_scraper,
-    globalcommunities_scraper,
-    hopkinsmedicine_scraper,
-    bhvi_scraper,
-    hope87_scraper,
-    u4h_scraper,
-    lionsclubs_scraper,
-    crs_scraper,
-    unicef_scraper,
-    scrape_kas,
-    afd_scraper,
-    unhcr_scraper,
-    trademarkafrica,
-    secoursislamique_scraper,
-    hu_maarif_scraper,
-    islamicrelief_scraper,
-    wmoworld_scraper,
-    reliefarc_scraper,
-    hhrd_scraper,
-    humanity_inclusion_scraper,
-    tearfund,
-    wellcome,
-    ihh,
-    wateraid,
-)
-
-import time
-
-# Mapping to scraper functions
-SCRAPER_ROUTER = {
-    "fundsforngos.org": fundsforngos_scraper.scrape_fundsforngos,
-    "grants.gov": grants_gov.scrape_grants,
-    "usaid.gov": usaid_gov.scrape_usaid,
-    "asiafoundation.org": asiafoundation_scraper.scrape_asiafoundation,
-    "britishcouncil.org": britishcouncil.scrape_bcouncil,
-    "daad.de": daad.scrape_daad,
-    "nihr.ac.uk": nihr.scrape_nihr,
-    "ec.europa.eu": ec_eu_grants.scrape_ec_eu_grants,
-    "theglobalfund.org": globalfund.scrape_globalfund,
-    "home.fundsforngospremium.com": fundsforngospremium.scrape_fundsforngospremium,
-    "gatesfoundation.org": gatesfoundation.scrape_gatesfoundation,
-    "opensocietyfoundations.org": opensociety.scrape_opensociety,
-    "undp.org": undp.scrape_undp,
-    "rockefellerfoundation.org": rockefeller.scrape_rockefeller,
-    "worldbank.org/projects-operations/products-and-services/grants": worldbank_grants.scrape_worldbank_grants,
-    "ec.europa.eu/programmes/horizon2020": horizon2020.scrape_horizon2020,
-    "fordfoundation.org": fordfoundation.scrape_fordfoundation,
-    "isdb.org": isdb.scrape_isdb,
-    "commonwealthfoundation.com": commonwealth.scrape_commonwealth,
-    "globalinnovation.fund": gif.scrape_gif,
-    "greenclimate.fund": greenclimate.scrape_greenclimatefund,
-    "worldbank.org/en/programs/development-marketplace": wb_marketplace.scrape_wb_marketplace,
-    "erc.europa.eu": erc.scrape_erc,
-    "research.google": googleresearch.scrape_googleresearch,
-    "microsoft.com/en-us/research": microsoftresearch.scrape_microsoftresearch,
-    "idrc.ca": idrc.scrape_idrc,
-    "jica.go.jp/english/": jica.scrape_jica,
-    "ec.europa.eu/programmes/erasmus-plus": erasmus.scrape_erasmus,
-    "unep.org": unep.scrape_unep,
-    "hollows.org": hollows.scrape_hollows,
-    "coopi.org": coopi_scraper.scrape_coopi,
-    "planete-eed.org": planete_eed_scraper.scrape_planete_eed,
-    "dss.un.org": undss_scraper.scrape_undss,
-    "unidosus.org": unidosus_scraper.scrape_unidosus,
-    "dai.com": dai_scraper.scrape_dai,
-    "educatetanzania.org": educatetanzania_scraper.scrape_educatetanzania,
-    "americanbar.org": americanbar_scraper.scrape_americanbar,
-    "worldvision.org": worldvision_scraper.scrape_worldvision,
-    "ibi-usa.com": ibi_scraper.scrape_ibi,
-    "thepalladiumgroup.com": palladium_scraper.scrape_palladium,
-    "worldwildlife.org": wwf_scraper.scrape_wwf,
-    "dfat.gov.au": dfat_scraper.scrape_dfat,
-    "ohchr.org": ohchr_scraper.scrape_ohchr,
-    "devex.com": devex_scraper.scrape_devex,
-    "globalcommunities.org": globalcommunities_scraper.scrape_globalcommunities,
-    "secours-islamique.org": secoursislamique_scraper.scrape_secoursislamique,
-    "hu.maarifschool.org": hu_maarif_scraper.scrape_hu_maarif,
-    "islamic-relief.org": islamicrelief_scraper.scrape_islamicrelief,
-    "wmoworld.org": wmoworld_scraper.scrape_wmoworld,
-    "relief-arc.com": reliefarc_scraper.scrape_reliefarc,
-    "hhrd.org": hhrd_scraper.scrape_hhrd,
-    "hopkinsmedicine.org": hopkinsmedicine_scraper.scrape_hopkinsmedicine,
-    "bhvi.org": bhvi_scraper.scrape_bhvi,
-    "hope87.org": hope87_scraper.scrape_hope87,
-    "u4h.org.uk": u4h_scraper.scrape_u4h,
-    "lionsclubs.org": lionsclubs_scraper.scrape_lionsclubs,
-    "crs.org": crs_scraper.scrape_crs,
-    "unicef.org": unicef_scraper.scrape_unicef,
-    "afd.fr": afd_scraper.scrape_afd,
-    "unhcr.org": unhcr_scraper.scrape_unhcr,
-    "humanity-inclusion.org": humanity_inclusion_scraper.scrape_humanity_inclusion,
-    "hope87.at": hope87.scrape_hope87,
-    "msf.org": msf.scrape_msf,
-    "nutritionintl.org": nutritionintl.scrape_nutritionintl,
-    "idrf.ca": idrf.scrape_idrf,
-    "humanconcern.org": humanconcern.scrape_humanconcern,
-    "righttoplay.com": righttoplay.scrape_righttoplay,
-    "msf.fr": msf_fr.scrape_msf_fr,
-    "handicap-international.org": handicap.scrape_handicap,
-    "medecinsdumonde.org": medecinsdumonde.scrape_medecinsdumonde,
-    "solidarites.org": solidarites.scrape_solidarites,
-    "welthungerhilfe.org": welthungerhilfe.scrape_welthungerhilfe,
-    "arche-nova.org": archenova.scrape_archenova,
-    "cbm.org": cbm.scrape_cbm,
-    "kindernothilfe.org": kindernothilfe.scrape_kindernothilfe,
-    "diakonie-katastrophenhilfe.de": diakonie.scrape_diakonie,
-    "fes.de": fes.scrape_fes,
-    "freiheit.org": freiheit.scrape_freiheit,
-    "concern.net": concern.scrape_concern,
-    "cure2children.org": cure2children.scrape_cure2children,
-    "cesvi.org": cesvi.scrape_cesvi,
-    "jen-npo.org": jen.scrape_jen,
-    "aarjapan.gr.jp": aarjapan.scrape_aarjapan,
-    "wamy.org": wamy.scrape_wamy,
-    "iico.org": iico.scrape_iico,
-    "genderconcerns.org": genderconcerns.scrape_genderconcerns,
-    "nca.no": nca.scrape_nca,
-    "qcharity.org": qcharity.scrape_qcharity,
-    "tdh.ch": tdh.scrape_tdh,
-    "gainhealth.org": gainhealth.scrape_gainhealth,
-    "helvetas.org": helvetas.scrape_helvetas,
-    "opensocietyfoundations.org": opensocietyfoundations.scrape_opensocietyfoundations,
-    "solidar.ch": solidarch.scrape_solidarch,
-    "ihh.org.tr": ihh.scrape_ihh,
-    "oxfam.org.uk": oxfam.scrape_oxfam,
-    "helpage.org": helpage.scrape_helpage,
-    "muslimhands.org.uk": muslimhands.scrape_muslimhands,
-    "sightsavers.org": sightsavers.scrape_sightsavers,
-    "midlanddoctors.org": midlanddoctors.scrape_midlanddoctors,
-    "vsointernational.org": vsointernational.scrape_vsointernational,
-    "wateraid.org": wateraid.scrape_wateraid,
-    "redr.org.uk": redr.scrape_redr,
-    "tearfund.org": tearfund.scrape_tearfund,
-    "humanappeal.org.uk": humanappeal.scrape_humanappeal,
-    "jhpiego.org": jhpiego.scrape_jhpiego,
-    "care.org": care.scrape_care,
-    "iqrafund.org": iqrafund.scrape_iqrafund,
-    "jsi.com": jsi.scrape_jsi,
-    "psi.org": psi.scrape_psi,
-    "taskforce.org": taskforce.scrape_taskforce,
-    "wcs.org": wcs.scrape_wcs,
-    "ifpri.org": ifpri.scrape_ifpri,
-    "cnfa.org": cnfa.scrape_cnfa,
-    "winrock.org": winrock.scrape_winrock,
-    "usp.org": usp.scrape_usp,
-    "unionaid.org": unionaid.scrape_unionaid,
-    "theunion.org": theunion.scrape_theunion,
-    "welthungerhilfe.org": welthungerhilfe.scrape_welthungerhilfe,
-    "arche-nova.org": arche_nova.scrape_arche_nova,
-    "knh.org": knh.scrape_knh,
-    "fnf.org": scrape_fnf.scrape_fnf,
-    "boell.de": scrape_boell.scrape_boell,
-    "kas.de": scrape_kas.scrape_kas,
-    "iscos.org": scrape_iscos.scrape_iscos,
-    "wfd.org": scrape_wfd.scrape_wfd,
-    "kort.org.uk": scrape_kort.scrape_kort,
-    "orphansinneed.org.uk": scrape_orphansinneed.scrape_orphansinneed,
-    "actionforhumanity.org": scrape_actionforhumanity.scrape_actionforhumanity,
-    "wearealight.org": scrape_wearealight.scrape_wearealight,
-    "malala.org": scrape_malala.scrape_malala,
-    "sparkofhope.org": scrape_sparkofhope.scrape_sparkofhope,
-    "solidaritycenter.org": scrape_solidaritycenter.scrape_solidaritycenter,
-    "worlded.org": scrape_worlded.scrape_worlded,
-    "centralasiainstitute.org": centralasia.scrape_centralasia,
-    "ndi.org": ndi.scrape_ndi,
-    "zakat.org": zakat.scrape_zakat,
-    "ilri.org": ilri.scrape_ilri,
-    "emphnet.net": emphnet.scrape_emphnet,
-    "cimmyt.org": cimmyt.scrape_cimmyt,
-    "mercycorps.org": mercycorps.scrape_mercycorps,
-    "who.int": who.scrape_who,
-    "fhi360.org": fhi360.scrape_fhi360,
-    "unops.org": unops.scrape_unops,
-    "ifc.org": ifc.scrape_ifc,
-    "dt-global.com": dtglobal.scrape_dtglobal,
-    "issafrica.org": issafrica.scrape_issafrica,
-    "unwomen.org": unwomen.scrape_unwomen,
-    "wfp.org": wfp.scrape_wfp,
-    "acdivoca.org": acdivoca.scrape_acdivoca,
-    "erm.com": erm.scrape_erm,
-    "nature.org": nature.scrape_nature,
-    "democracyinternational.com": di.scrape_di,
-    "unhabitat.org": unhabitat.scrape_unhabitat,
-    "wri.org": wri.scrape_wri,
-    "generation.org": generation.scrape_generation,
-    "msiworldwide.com": msi.scrape_msi,
-    "premiere-urgence.org": pu.scrape_pu,
-    "ibtci.com": ibtci.scrape_ibtci,
-    "chemonics.com": chemonics.scrape_chemonics,
-    "niras.com": niras.scrape_niras,
-    "tetratech.com": tetratech.scrape_tetratech,
-    "unocha.org": unocha.scrape_unocha,
-    "iom.int": iom.scrape_iom,
-    "rti.org": rti.scrape_rti,
-    "change.org": change.scrape_change,
-    "watermission.org": watermission.scrape_watermission,
-    "vitalvoices.org": vitalvoices.scrape_vitalvoices,
-    "roomtoread.org": roomtoread.scrape_roomtoread,
-    "oneacrefund.org": oneacrefund.scrape_oneacrefund,
-    "gggi.org": gggi.scrape_gggi,
-    "idinsight.org": idinsight.scrape_idinsight,
-    "unodc.org": unodc.scrape_unodc,
-    "poverty-action.org": povertyaction .scrape_poverty_action,
-    "partners.net": partners.scrape_partners,
-    "imaworldhealth.org": imaworldhealth .scrape_imaworldhealth,
-    "goalglobal.org": goalglobal .scrape_goalglobal,
-    "savethechildren.org": savethechildren .scrape_savethechildren,
-    "impact-initiatives.org": impactinitiatives .scrape_impactinitiatives,
-    "msh.org": msh .scrape_msh,
-    "pactworld.org": pactworld .scrape_pactworld,
-    "trademarkafrica.com": trademarkafrica .scrape_trademarkafrica,
-    "cgiar.org": cgiar .scrape_cgiar,
-    "kenan-asia.org": kenanasia .scrape_kenanasia,
-    "counterpart.org": counterpart .scrape_counterpart,
-    "technoserve.org": technoserve .scrape_technoserve,
-    "iesc.org": iesc .scrape_iesc,
-    "intrahealth.org": intrahealth .scrape_intrahealth,
-    "internationalmedicalcorps.org": internationalmedicalcorps .scrape_internationalmedicalcorps,
-    "uncdf.org": uncdf .scrape_uncdf,
-    "alliancebioversityciat.org": alliancebioversityciat .scrape_alliancebioversityciat,
-    "foodandwaterwatch.org": foodandwaterwatch .scrape_foodandwaterwatch,
-    "padf.org": padf .scrape_padf,
-    "edc.org": edc .scrape_edc,
-    "gopa.de": gopa .scrape_gopa,
-    "irex.org": irex .scrape_irex,
-    "acumen.org": acumen .scrape_acumen,
-    "thecommonwealth.org": thecommonwealth .scrape_thecommonwealth,
-    "makingcents.com": makingcents.scrape_makingcents,
-    "ecb.europa.eu": ecb.scrape_ecb,
-    "wipo.int": wipo.scrape_wipo,
-    "un.org/desa": un_desa.scrape_un_desa,
-    "princes-trust.org.uk": princes_trust.scrape_princes_trust,
-    "teachforall.org": teach_for_all.scrape_teach_for_all,
-    "upu.int": upu.scrape_upu,
-    "adamsmithinternational.com": adamsmith_international.scrape_adamsmith_international,
-    "creativeassociatesinternational.com": creative_associates_international.scrape_creative_associates_international,
-    "aspeninstitute.org": aspen_institute.scrape_aspen_institute,
-    "edf.org": edf.scrape_edf,
-    "salaambaalaktrust.com": salaam_baalak_trust.scrape_salaam_baalak_trust,
-    "iri.org": iri.scrape_iri,
-    "icrisat.org": icrisat.scrape_icrisat,
-    "interpol.int": interpol.scrape_interpol,
-    "opml.co.uk": opml.scrape_opml,
-    "globalgrantsinitiative.org": global_grants_initiative.scrape_global_grants_initiative,
-    "theigc.org": the_igc.scrape_the_igc,
-    "spencer.org": spencer.scrape_spencer,
-    "fes.pakistan.org": fes_pakistan.scrape_fes_pakistan,
-    "icimod.org": icimod.scrape_icimod,
-    "google.org": google.scrape_google,
-    "oakfnd.org": oakfnd.scrape_oakfnd,
-    "preparecenter.org": prepare_center.scrape_prepare_center,
-    "iki-small-grants.de": iki_small_grants.scrape_iki_small_grants,
-    "being-initiative.org": being_initiative.scrape_being_initiative,
-    "giz.de": giz.scrape_giz,
-    "wellcome.org": wellcome.scrape_wellcome,
-    "fedtech.io": fedtech.scrape_fedtech,
-}
-
-from urllib.parse import urlparse
-import time
-from celery import shared_task  # or from celery import task if your celery version uses that
-
-
-
-@shared_task(name="tasks.run_scrapers.run_all_scrapers")
-def run_all_scrapers():
-    print("✅ run_all_scrapers is executing inside Celery task")
-
-    urls = [
-        "https://www.fundsforngos.org",
-        "https://www.grants.gov",
-        "https://www.usaid.gov",
-        "https://asiafoundation.org",
-        "https://www.britishcouncil.org/exam/english/aptis/research/grants-and-awards/grants",
-        "http://daad.de",
-        "http://nihr.ac.uk",
-        "https://ec.europa.eu",
-        "https://www.theglobalfund.org",
-        "https://home.fundsforngospremium.com",
-        "https://www.gatesfoundation.org",
-        "https://www.opensocietyfoundations.org",
-        "https://www.undp.org",
-        "https://www.rockefellerfoundation.org",
-        "https://www.worldbank.org/projects-operations/products-and-services/grants",
-        "https://ec.europa.eu/programmes/horizon2020",
-        "https://www.fordfoundation.org",
-        "https://www.isdb.org",
-        "https://commonwealthfoundation.com",
-        "https://www.globalinnovation.fund",
-        "https://www.greenclimate.fund",
-        "https://www.worldbank.org/en/programs/development-marketplace",
-        "https://erc.europa.eu",
-        "https://research.google",
-        "https://www.microsoft.com/en-us/research",
-        "https://idrc.ca",
-        "https://www.jica.go.jp/english/",
-        "https://ec.europa.eu/programmes/erasmus-plus",
-        "https://www.unep.org",
-        "https://www.hollows.org",
-        "https://coopi.org",
-        "https://planete-eed.org/en/",
-        "https://dss.un.org/Welcome-to-UNDSS?returnurl=%2f",
-        "https://www.unidosus.org",
-        "https://www.dai.com",
-        "https://www.educatetanzania.org",
-        "https://www.americanbar.org/groups/departments_offices/fund_justice_education/",
-        "https://www.worldvision.org/ignite/",
-        "https://ibi-usa.com",
-        "https://thepalladiumgroup.com",
-        "https://www.worldwildlife.org",
-        "https://www.dfat.gov.au",
-        "https://www.ohchr.org/en/ohchr_homepage",
-        "https://www.devex.com",
-        "https://www.globalcommunities.org",
-        "https://www.secours-islamique.org",
-        "https://hu.maarifschool.org/page/the-turkish-maarif-foundation",
-        "https://www.islamic-relief.org",
-        "https://wmoworld.org/wmo-membership/",
-        "https://relief-arc.com/partnerships.html",
-        "https://www.hhrd.org",
-        "https://www.un.org/desa",
-        "https://www.hopkinsmedicine.org",
-        "https://bhvi.org/news/tag/gender-equity/?utm_source",
-        "https://www.hope87.org/membership",
-        "https://u4h.org.uk",
-        "https://www.lionsclubs.org/en",
-        "https://www.crs.org",
-        "https://www.unicef.org",
-        "https://www.afd.fr/en",
-        "https://www.unhcr.org",
-        "https://www.hi.org/en/our-mission",
-        "http://www.hope87.at",
-        "https://www.msf.org",
-        "https://www.nutritionintl.org",
-        "https://www.idrf.ca",
-        "https://www.humanconcern.org",
-        "https://www.righttoplay.com",
-        "https://www.msf.fr",
-        "https://www.handicap-international.org",
-        "https://www.medecinsdumonde.org",
-        "https://www.solidarites.org",
-        "https://www.welthungerhilfe.org",
-        "https://www.arche-nova.org",
-        "https://www.cbm.org",
-        "https://www.kindernothilfe.org",
-        "https://www.diakonie-katastrophenhilfe.de",
-        "https://www.fes.de",
-        "https://www.freiheit.org/scholarships-friedrich-naumann-foundation-freedom",
-        "https://www.concern.net",
-        "https://www.cure2children.org",
-        "https://www.cesvi.org",
-        "https://www.jen-npo.org",
-        "https://www.aarjapan.gr.jp",
-        "https://www.wamy.org",
-        "https://www.genderconcerns.org",
-        "https://www.nca.no",
-        "https://www.iico.org",
-        "https://www.qcharity.org",
-        "https://www.tdh.ch",
-        "https://www.gainhealth.org",
-        "https://www.helvetas.org",
-        "https://www.opensocietyfoundations.org",
-        "https://www.solidar.ch",
-        "https://www.ihh.org.tr",
-        "https://www.oxfam.org.uk",
-        "https://www.helpage.org",
-        "https://www.muslimhands.org.uk",
-        "https://sightsavers.org",
-        "https://www.midlanddoctors.org",
-        "https://www.vsointernational.org",
-        "https://www.wateraid.org",
-        "https://www.redr.org.uk",
-        "https://www.tearfund.org",
-        "https://humanappeal.org.uk",
-        "https://jhpiego.org",
-        "https://care.org",
-        "https://iqrafund.org",
-        "https://www.jsi.com",
-        "https://www.psi.org",
-        "https://www.taskforce.org",
-        "https://www.wcs.org",
-        "https://www.ifpri.org",
-        "https://www.cnfa.org",
-        "https://www.winrock.org",
-        "https://www.usp.org",
-        "https://www.unionaid.org/rfq",
-        "https://www.theunion.org",
-        "https://knh.or.ke/index.php/funding-rfa/",
-        "https://fnf.org",
-        "https://www.boell.de/en/foundation/scholarships",
-        "https://www.kas.de/en/web/begabtenfoerderung-und-kultur",
-        "https://iscos.org",
-        "https://wfd.org",
-        "https://kort.org.uk",
-        "https://orphansinneed.org.uk",
-        "https://actionforhumanity.org",
-        "https://wearealight.org",
-        "https://www.malala.org/grantmaking",
-        "https://thesparkofhope.org/scholarships/",
-        "https://solidaritycenter.org",
-        "https://worlded.org",
-        "https://centralasiainstitute.org",
-        "https://ndi.org",
-        "https://www.zakat.org/get-involved/scholarships",
-        "https://ilri.org",
-        "https://emphnet.net",
-        "https://cimmyt.org",
-        "https://mercycorps.org",
-        "https://who.int",
-        "https://www.fhi360.org/partner-us-business-opportunities/",
-        "https://www.unops.org/business-opportunities",
-        "https://ifc.org",
-        "https://dt-global.com/proposals/",
-        "https://issafrica.org",
-        "https://www.unwomen.org/en/about-us/procurement",
-        "https://wfp.org",
-        "https://acdivoca.org",
-        "https://erm.com",
-        "https://nature.org",
-        "https://democracyinternational.com",
-        "https://unhabitat.org/join-us/calls",
-        "https://wri.org",
-        "https://generation.org",
-        "https://msiworldwide.com",
-        "https://premiere-urgence.org",
-        "https://ibtci.com",
-        "https://chemonics.com",
-        "https://niras.com",
-        "https://tetratech.com",
-        "https://unocha.org",
-        "https://iom.int",
-        "https://rti.org",
-        "https://change.org",
-        "https://watermission.org",
-        "https://vitalvoices.org",
-        "https://roomtoread.org",
-        "https://oneacrefund.org",
-        "https://gggi.org/tag/grants/",
-        "https://www.idinsight.org/article/call-for-proposals-advancing-evidence-on-digital-platform-work-in-lmics/",
-        "https://www.unodc.org/unodc/en/human-trafficking-fund/unvtf-funding.html",
-        "https://poverty-action.org/open-funding-opportunities",
-        "https://members.partners.net/page/foundation-grants",
-        "https://imaworldhealth.org/contracting-opportunities",
-        "https://www.goalglobal.org/innovationfund/",
-        "https://www.savethechildren.org/us/about-us/contact-us/rfp",
-        "https://www.impact-initiatives.org/work-with-us/tenders/",
-        "https://msh.org/partner-with-us/",
-        "https://www.pactworld.org/procurement",
-        "https://www.trademarkafrica.com/procurement/",
-        "https://www.cgiar.org/dashboards/grants/",
-        "https://www.kenan-asia.org/2025-yseali-ai/",
-        "https://www.counterpart.org/business-opportunities/",
-        "https://www.technoserve.org/h4g-catalytic-grant-fund/",
-        "https://iesc.org/get-involved/partner/",
-        "hhttps://www.intrahealth.org/proposal-opportunities",
-        "https://internationalmedicalcorps.org/who-we-are/accountability-financials/open-tenders/",
-        "https://www.uncdf.org",
-        "https://alliancebioversityciat.org/tag/grants",
-        "https://foodandwaterwatch.org",
-        "https://padf.org",
-        "https://edc.org",
-        "https://gopa.de",
-        "https://www.irex.org/program/community-engagement-exchange-program-application-information",
-        "https://acumen.org",
-        "https://thecommonwealth.org/procurement",
-        "https://makingcents.com",
-        "https://www.ecb.europa.eu/careers/what-we-offer/wecs/html/index.en.html",
-        "https://www.wipo.int/en/web/awards/global/how-to-apply",
-        "https://un.org/desa",
-        "https://princes-trust.org.uk",
-        "https://teachforall.org/network-graduate-school-partnerships",
-        "https://www.upu.int/en/universal-postal-union/procurement",
-        "https://adamsmithinternational.com",
-        "https://creativeassociatesinternational.com",
-        "https://aspeninstitute.org",
-        "https://edf.org",
-        "https://salaambaalaktrust.com",
-        "https://iri.org",
-        "https://www.icrisat.org/services/business-incubation",
-        "https://www.interpol.int/Who-we-are/Procurement/Open-calls-for-tender",
-        "https://opml.co.uk",
-        "https://www.globalgrantsinitiative.org/application",
-        "https://www.theigc.org/researchers/funding",
-        "https://www.spencer.org/research-grants",
-        "https://pakistan.fes.de/about/fes-in-pakistan.html",
-        "https://www.icimod.org/film-grants-on-water-springs-2024/",
-        "https://www.google.org/",
-        "https://oakfnd.org/grant-making/",
-        "https://preparecenter.org/activity/gdpc-research-activities/gdpc-small-research-grants-program/",
-        "https://iki-small-grants.de/application/",
-        "https://being-initiative.org/news/applications-now-open-funding-youth-mental-health-innovations/",
-        "https://www.giz.de/en/worldwide/205555.html",
-        "https://wellcome.org/research-funding/schemes",
-        "https://www.fedtech.io/corporates"
-    ]
-
+    ✅ NOW READS FROM NEONDB ONLY (NO categories.json DEPENDENCY)
+    
+    Benefits:
+    - Deleted websites stay deleted (not in DB, won't be scraped)
+    - Updates remain permanent (all operations on NeonDB)
+    - No dependency on categories.json file
+    - Only scrapes URLs that exist in the database
+    - User-added URLs are preserved
+    """
     all_results = []
+    
+    # ✅ Get all grants from NeonDB (not from categories.json)
+    logger.info(f"[{datetime.utcnow()}] Loading grants from NeonDB...")
+    grants_from_db = get_grant_sites()
+    logger.info(f"[{datetime.utcnow()}] Found {len(grants_from_db)} grants in NeonDB to scrape")
 
-    def try_scraper(url):
-        domain = urlparse(url).netloc.replace("www.", "")
-        scraper = SCRAPER_ROUTER.get(domain)
-        if scraper:
-            print(f"Scraping started for domain: {domain}")
-            try:
-                result = scraper(url)
-                if isinstance(result, list):
-                    print(f"Scraper result list length: {len(result)}")
-                    return result
-                print(f"Scraper result: {result}")
-                return result
-            except Exception as e:
-                print(f"Scraper error for domain {domain}: {e}")
-                return None
-        else:
-            print(f"No scraper found for domain: {domain}")
-            return None
+    if not grants_from_db:
+        logger.warning(f"[{datetime.utcnow()}] ⚠️ No grants found in NeonDB. Nothing to scrape.")
+        return []
 
-    for url in urls:
-        result = try_scraper(url)
-        if result is None:
-            print(f"No data returned from scraper for URL: {url}")
-            continue
+    for i, grant in enumerate(grants_from_db, 1):
+        url = grant.url
+        grant_id = grant.id
+        is_user_added = grant.is_user_added
+        
+        # Fix URL if missing scheme
+        if not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
+            logger.info(f"[{datetime.utcnow()}] Fixed URL (added https://): {url}")
+        
+        logger.info(f"[{datetime.utcnow()}] [{i}/{len(grants_from_db)}] Starting scraper for ID {grant_id}: {url}")
 
-        if isinstance(result, list):
-            for grant in result:
-                if isinstance(grant, dict) and "url" in grant and "status" in grant:
-                    add_or_update_grant(grant["url"], grant["status"])
-                    all_results.append((grant["url"], grant["status"]))
-                else:
-                    logging.warning(f"Invalid grant format: {grant}")
-        else:
-            if isinstance(result, dict) and "url" in result and "status" in result:
-                add_or_update_grant(result["url"], result["status"])
-                all_results.append((result["url"], result["status"]))
-            else:
-                logging.warning(f"Invalid result format: {result}")
+        try:
+            # ✅ Scrape the URL
+            result = scrape_page(url)
 
-        time.sleep(1)  # polite pause
+            # Fallbacks - preserve existing data if scraper doesn't provide it
+            base_url = result.get("base_url") or url
+            landing_page = result.get("landing_page") or url
+            status = result.get("status", "unknown")
+            
+            # Preserve existing categories if scraper doesn't provide new ones
+            categories = result.get("categories", []) or grant.categories or []
+            regions = result.get("regions", []) or grant.regions or []
+            thematic_areas = result.get("thematic_areas", []) or grant.thematic_areas or []
+            eligibility = result.get("eligibility", "") or grant.eligibility or ""
 
-    open_grants = [url for url, status in all_results if status and 'open' in str(status).lower()]
+            # ✅ Update the existing record in NeonDB
+            # ✅ preserve_user_flag=True ensures user-added URLs are not overwritten
+            # ✅ This will UPDATE the existing record (not create new one)
+            add_or_update_grant_site(
+                url=base_url,  # Use existing URL from DB
+                status=status,
+                landing_page=landing_page,
+                categories=categories,
+                regions=regions,
+                applicable_to_pakistan=result.get("applicable_to_pakistan", False),
+                open_date=result.get("open_date"),
+                close_date=result.get("close_date"),
+                eligibility=eligibility,
+                thematic_areas=thematic_areas,
+                is_user_added=is_user_added,  # ✅ Preserve user-added flag
+                preserve_user_flag=True  # ✅ Don't overwrite user-added URLs
+            )
 
-    if open_grants:
-        subject = "Grant Notification - Open Grants Found"
-        body = "The following grant URLs have open funding opportunities:\n\n" + "\n".join(open_grants)
-        to_email = "attahania193@gmail.com"  # replace with actual recipient
-        send_email(subject, body, to_email)
-        print("Notification email sent for open grants.")
+            all_results.append({
+                "id": grant_id,
+                "url": base_url,
+                "landing_page": landing_page,
+                "status": status,
+                "categories": categories,
+            })
 
-    return {"status": "completed", "open_grants_count": len(open_grants)}
+            logger.info(f"[{datetime.utcnow()}] ✅ Scraper finished for {url} (ID: {grant_id})")
+
+        except Exception as exc:
+            logger.error(f"[{datetime.utcnow()}] ❌ Error scraping {url} (ID: {grant_id}): {exc}", exc_info=True)
+            all_results.append({
+                "id": grant_id,
+                "url": url,
+                "status": "error",
+                "error": str(exc),
+            })
+            # Uncomment to retry failed scraping
+            # raise self.retry(exc=exc)
+
+        time.sleep(5)  # throttle requests
+
+    # === Send summary email ===
+    try:
+        success_count = sum(1 for r in all_results if r.get("status") != "error")
+        fail_count = len(all_results) - success_count
+
+        send_email(
+            subject="Grant Scraper Run Completed (NeonDB)",
+            body=f"✅ {success_count} successful, ❌ {fail_count} failed, total {len(all_results)} grants scraped from NeonDB",
+            to_email="attahania193@gmail.com",
+        )
+        logger.info(f"[{datetime.utcnow()}] ✅ Email notification sent")
+    except Exception as e:
+        logger.warning(f"[{datetime.utcnow()}] ⚠️ Failed to send email: {e}", exc_info=True)
+
+    return all_results

@@ -6,3 +6,8 @@ venv/
 env/
 .DS_Store
 .vscode/
+.env
+.env.*
+*.bak
+
+.venv/

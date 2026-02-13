@@ -3,54 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Grantify</title>
+  <title>Grantify Dashboard</title>
   <link rel="icon" type="image/x-icon" href="/image/logo.ico">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   
   <style>
-    /* Cursor styles */
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background-color: #006d77;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-    }
-    .cursor-outline {
-      width: 40px;
-      height: 40px;
-      border: 2px solid #006d77;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.2s ease-out;
-      opacity: 0.5;
-    }
-    .cursor-dot.hover, .cursor-outline.hover {
-      transform: scale(1.5);
-      background-color: #03626b;
-      border-color: #03626b;
-    }
-
-    /* Gradient background */
-    body {
-      background: linear-gradient(135deg, #83c5be 0%, #6ab7b0 50%, #4fa9a2 100%);
-      min-height: 100vh;
-    }
-
-    /* Category colors */
-    .category-climate { background-color: rgba(74, 222, 128, 0.2); color: #166534; }
-    .category-women { background-color: rgba(244, 114, 182, 0.2); color: #9d174d; }
-    .category-development { background-color: rgba(96, 165, 250, 0.2); color: #1e40af; }
-    .category-education { background-color: rgba(250, 204, 21, 0.2); color: #854d0e; }
-    .category-other { background-color: rgba(156, 163, 175, 0.2); color: #4b5563; }
+    body { background: linear-gradient(135deg, #83c5be 0%, #6ab7b0 50%, #4fa9a2 100%); min-height: 100vh; }
+    .cursor-dot { width: 8px; height: 8px; background-color: #006d77; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease; }
+    .cursor-outline { width: 40px; height: 40px; border: 2px solid #006d77; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.2s ease-out; opacity: 0.5; }
+    .cursor-dot.hover, .cursor-outline.hover { transform: scale(1.5); background-color: #03626b; border-color: #03626b; }
+    .grant-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .grant-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
   </style>
 </head>
 
@@ -60,127 +25,165 @@
   <div class="cursor-outline"></div>
 
   <div class="min-h-screen flex flex-col">
-
     <!-- Header -->
-    <header class="shadow-md p-6 flex flex-col items-center justify-center bg-gradient-to-r from-[#83c5be] to-[#6ab7b0]">
-      <!-- Title -->
-      <h1 class="text-4xl font-extrabold mb-4" style="color:#03626b">Grantify Dashboard</h1>
-    
-      <!-- Centered Logout button -->
-      <a href="/logout" 
-         class="bg-gradient-to-r from-[#83c5be] to-[#6ab7b0] text-white font-semibold px-6 py-2 rounded-xl shadow-md hover:scale-105 transition">
+    <header class="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#83c5be] to-[#6ab7b0]">
+      <h1 class="text-3xl font-extrabold" style="color:#03626b">Grantify Dashboard</h1>
+      <a href="/logout" class="bg-white text-[#03626b] font-semibold px-4 py-2 rounded-lg shadow hover:scale-105 transition">
         Logout
       </a>
     </header>
     
-    
-
     <!-- Main -->
-    <main class="flex-1 container mx-auto p-6 space-y-6">
-
-      <!-- URL Form -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 animate__animated animate__fadeInDown">
-        <form id="urlForm" class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+    <main class="flex-1 container mx-auto p-4 md:p-6 space-y-4">
+      <!-- URL Form - Only visible to admins -->
+      {% if is_admin %}
+      <div class="bg-white rounded-xl shadow-lg p-4 animate__animated animate__fadeInDown">
+        <h2 class="text-lg font-bold mb-3" style="color:#03626b">Add New Grant URL</h2>
+        <form id="urlForm" class="flex flex-col md:flex-row gap-3">
           <input type="url" id="urlInput" placeholder="Enter grant URL" required
-            class="flex-1 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 transition"
+            class="flex-1 border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2"
             style="--tw-ring-color:#006d77"/>
-          
-          <select id="categoryInput" class="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 transition"
+          <select id="categoryInput" multiple
+            class="border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2 min-w-[150px]"
             style="--tw-ring-color:#006d77">
-            <option value="climate">Climate Change</option>
-            <option value="women">Women Empowerment</option>
-            <option value="development">Development</option>
-            <option value="education">Education</option>
-            <option value="other">Other</option>
+            {% for cat in categories %}
+              <option value="{{ cat }}">{{ cat }}</option>
+            {% endfor %}
           </select>
-          
           <button type="submit"
-            class="text-white px-6 py-3 rounded-lg shadow transition animate__animated animate__pulse animate__infinite animate__slow"
+            class="text-white px-6 py-2.5 rounded-lg shadow transition"
             style="background-color:#006d77">
-            Check & Add URL
+            Add URL
           </button>
         </form>
         <p id="formMessage" class="mt-2 text-sm"></p>
       </div>
+      {% else %}
+      <div class="bg-white rounded-xl shadow-lg p-4 animate__animated animate__fadeInDown">
+        <p class="text-gray-600 text-center text-sm">Welcome! You are viewing grants in read-only mode.</p>
+      </div>
+      {% endif %}
 
-      <!-- Stats -->
-      <div class="flex justify-center">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 w-full max-w-6xl mx-auto">
-          <div class="bg-white rounded-2xl shadow-lg p-6 animate__animated animate__zoomIn text-center">
-            <h3 class="text-sm uppercase text-gray-500">Total Grants</h3>
-            <p class="text-3xl font-bold" style="color:#006d77">{{ total_grants }}</p>
-          </div>
-          <div class="bg-white rounded-2xl shadow-lg p-6 animate__animated animate__zoomIn animate__delay-1s text-center">
-            <h3 class="text-sm uppercase text-gray-500">Open Grants</h3>
-            <p class="text-3xl font-bold" style="color:#03626b">{{ open_count }}</p>
-          </div>
-          <div class="bg-white rounded-2xl shadow-lg p-6 animate__animated animate__zoomIn animate__delay-2s text-center">
-            <h3 class="text-sm uppercase text-gray-500">Closed Grants</h3>
-            <p class="text-3xl font-bold text-red-500">{{ closed_count }}</p>
-          </div>
-
+      <!-- Search and Filters -->
+      <div class="bg-white rounded-xl shadow-lg p-4 space-y-3">
+        <input type="text" id="searchInput" placeholder="🔍 Search grants by URL, category, or status..."
+          class="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:ring-2"
+          style="--tw-ring-color:#006d77" onkeyup="filterGrants()" />
+        
+        <div class="flex flex-wrap gap-2">
+          <span class="text-sm font-semibold text-gray-700 py-1">Filter:</span>
+          <a href="/" class="px-3 py-1 rounded-full text-sm bg-gray-200 text-gray-700 hover:bg-gray-300">All</a>
+          {% for cat in categories %}
+            <a href="/category/{{ cat }}" 
+               class="px-3 py-1 rounded-full text-sm whitespace-nowrap"
+               style="background-color: rgba(131,197,190,0.3); color: #03626b;"
+               onmouseover="this.style.backgroundColor='rgba(131,197,190,0.5)'"
+               onmouseout="this.style.backgroundColor='rgba(131,197,190,0.3)'">
+              {{ cat }}
+            </a>
+          {% endfor %}
         </div>
       </div>
 
-      <!-- Filters -->
-      <div class="flex flex-wrap gap-2 justify-center">
-        <button class="category-filter px-4 py-2 rounded-full category-climate" data-category="climate">Climate Change</button>
-        <button class="category-filter px-4 py-2 rounded-full category-women" data-category="women">Women Empowerment</button>
-        <button class="category-filter px-4 py-2 rounded-full category-development" data-category="development">Development</button>
-        <button class="category-filter px-4 py-2 rounded-full category-education" data-category="education">Education</button>
-        <button class="category-filter px-4 py-2 rounded-full category-other" data-category="other">Other</button>
-        <button class="category-filter px-4 py-2 rounded-full bg-gray-200 ring-2 ring-blue-500" data-category="all">Show All</button>
+      <!-- Grants Table - Cleaner Design -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden animate__animated animate__fadeInUp">
+        <div class="overflow-x-auto">
+          <table id="grantsTable" class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">URL</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Categories</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Dates</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Pakistan</th>
+                {% if is_admin %}
+                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Actions</th>
+                {% endif %}
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {% for grant in grants %}
+              <tr class="grant-card hover:bg-gray-50">
+                <td class="px-4 py-3">
+                  <a href="{{ grant.url }}" target="_blank" class="text-sm text-blue-600 hover:underline font-medium">
+                    {{ grant.url[:50] }}{% if grant.url|length > 50 %}...{% endif %}
+                  </a>
+                  {% if grant.landing_page and grant.landing_page != grant.url %}
+                  <div class="text-xs text-gray-500 mt-1">
+                    → <a href="{{ grant.landing_page }}" target="_blank" class="text-green-600 hover:underline">{{ grant.landing_page[:40] }}...</a>
+                  </div>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-3">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold uppercase"
+                        style="background-color: {{ 'rgba(131,197,190,0.3)' if grant.status=='open' else ( 'rgba(255,100,100,0.2)' if grant.status=='closed' else 'rgba(255,165,0,0.2)') }};
+                               color: {{ '#03626b' if grant.status=='open' else ( '#b91c1c' if grant.status=='closed' else '#b45309') }}">
+                    {{ grant.status | capitalize }}
+                  </span>
+                </td>
+                <td class="px-4 py-3">
+                  <div class="flex flex-wrap gap-1">
+                    {% for cat in grant.categories[:3] %}
+                      <span class="px-2 py-0.5 rounded text-xs font-medium uppercase"
+                            style="background-color: rgba(131,197,190,0.2); color: #03626b;">
+                        {{ cat }}
+                      </span>
+                    {% endfor %}
+                    {% if grant.categories|length > 3 %}
+                      <span class="text-xs text-gray-500">+{{ grant.categories|length - 3 }}</span>
+                    {% endif %}
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-xs text-gray-600">
+                  {% if grant.open_date or grant.close_date %}
+                    <div><strong>Open:</strong> {{ grant.open_date if grant.open_date else 'N/A' }}</div>
+                    <div><strong>Close:</strong> {{ grant.close_date if grant.close_date else 'N/A' }}</div>
+                  {% else %}
+                    <span class="text-gray-400">N/A</span>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-3">
+                  {% if grant.applicable_to_pakistan %}
+                    <span class="px-2 py-1 rounded text-xs font-semibold" style="background-color: rgba(131,197,190,0.3); color: #03626b;">✓ Yes</span>
+                  {% else %}
+                    <span class="text-xs text-gray-400">No</span>
+                  {% endif %}
+                </td>
+                {% if is_admin %}
+                <td class="px-4 py-3">
+                  <button onclick="removeGrant({{ grant.id }})" 
+                    class="text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                </td>
+                {% endif %}
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="{% if is_admin %}6{% else %}5{% endif %}" class="text-center py-8 text-gray-500">
+                  No grants available
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- Table -->
-      <div class="bg-white rounded-2xl shadow-lg overflow-auto animate__animated animate__fadeInUp">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">URL</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
-              <th class="px-6 py-3"></th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            {% for grant in grants %}
-            <tr class="hover:bg-gray-100 transition grant-row" data-category="{{ grant.category }}">
-              <td class="px-6 py-4 text-sm text-gray-700 whitespace-nowrap">{{ grant.id }}</td>
-              <td class="px-6 py-4 text-sm whitespace-nowrap hover:underline" style="color:#006d77">
-                <a href="{{ grant.url }}" target="_blank">{{ grant.url }}</a>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-3 py-1 rounded-full text-sm font-semibold uppercase category-{{ grant.category }}">
-                  {{ grant.category | capitalize }}
-                </span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-3 py-1 rounded-full text-sm font-semibold uppercase"
-                      style="background-color: {{ 'rgba(131, 197, 190, 0.3)' if grant.status == 'open' else 'rgba(255, 100, 100, 0.2)' }};
-                             color: {{ '#03626b' if grant.status == 'open' else '#b91c1c' }}">
-                  {{ grant.status | capitalize }}
-                </span>
-              </td>
-              <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                {{ grant.last_updated.strftime('%Y-%m-%d %H:%M') if grant.last_updated else 'N/A' }}
-              </td>
-              <td class="px-6 py-4 text-right text-sm font-medium">
-                <button onclick="removeGrant({{ grant.id }})" class="transition hover:text-red-700" style="color:#b91c1c">
-                  Remove
-                </button>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <!-- Expandable Details (Hidden by default, show on click) -->
+      <div id="detailsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold" style="color:#03626b">Grant Details</h3>
+            <button onclick="closeDetails()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+          </div>
+          <div id="detailsContent" class="space-y-3 text-sm">
+            <!-- Details will be populated here -->
+          </div>
+        </div>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="shadow-inner p-4 text-center text-sm bg-gradient-to-r from-[#83c5be] to-[#6ab7b0]" style="color:#03626b">
+    <footer class="shadow-inner p-3 text-center text-xs bg-gradient-to-r from-[#83c5be] to-[#6ab7b0]" style="color:#03626b">
       &copy; {{ current_year }} Grantify. All rights reserved.
     </footer>
   </div>
@@ -203,48 +206,58 @@
       });
     });
 
-    // Filter
-    document.querySelectorAll('.category-filter').forEach(button=>{
-      button.addEventListener('click', function(){
-        const cat=this.dataset.category;
-        document.querySelectorAll('.grant-row').forEach(row=>{
-          row.style.display=(cat==='all'||row.dataset.category===cat)?'table-row':'none';
-        });
-        document.querySelectorAll('.category-filter').forEach(btn=>btn.classList.remove('ring-2','ring-blue-500'));
-        this.classList.add('ring-2','ring-blue-500');
+    // Search filter
+    function filterGrants() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      document.querySelectorAll("#grantsTable tbody tr").forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
       });
-    });
+    }
 
     // Submit form
-    document.getElementById("urlForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const url = document.getElementById("urlInput").value;
-      const category = document.getElementById("categoryInput").value;
+    const urlForm = document.getElementById("urlForm");
+    if (urlForm) {
+      urlForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const url = document.getElementById("urlInput").value;
+        const selected = Array.from(document.getElementById("categoryInput").selectedOptions).map(o => o.value);
 
-      const response = await fetch("/api/submit-url", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, category }),
+        const response = await fetch("/api/submit-url", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url, categories: selected }),
+        });
+
+        const result = await response.json();
+        const messageBox = document.getElementById("formMessage");
+        messageBox.textContent = result.message;
+        messageBox.style.color = result.status === "success" ? "#03626b" : "#b91c1c";
+        if (result.status === "success") {
+          setTimeout(() => location.reload(), 2000);
+        }
       });
+    }
 
-      const result = await response.json();
-      const messageBox = document.getElementById("formMessage");
-      messageBox.textContent = result.message;
-      messageBox.style.color = result.status === "success" ? "#03626b" : "#b91c1c";
-      if (result.status === "success") {
-        setTimeout(() => location.reload(), 2000);
-      }
-    });
-
+    // Remove grant
     async function removeGrant(id) {
-      const confirmDelete = confirm("Remove this grant?");
-      if (!confirmDelete) return;
+      if (!confirm("Are you sure you want to remove this grant?")) return;
       try {
         const res = await fetch(`/api/remove-url/${id}`, { method: "DELETE" });
         const data = await res.json();
-        if (data.status === "success") { alert(data.message); location.reload(); }
-        else { alert("Failed: "+data.message); }
-      } catch (err) { console.error("Delete error:", err); alert("Error occurred."); }
+        if (data.status === "success") { 
+          alert(data.message); 
+          location.reload(); 
+        } else { 
+          alert("Failed: " + data.message); 
+        }
+      } catch (err) { 
+        console.error("Delete error:", err); 
+        alert("Error occurred while removing grant."); 
+      }
+    }
+
+    function closeDetails() {
+      document.getElementById("detailsModal").classList.add("hidden");
     }
   </script>
 </body>
